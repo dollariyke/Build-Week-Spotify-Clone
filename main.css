@@ -291,19 +291,25 @@ aside {
 
 #main-container h2,
 #search h2,
+#your-library h2,
 #main-container h3,
 #search h3,
+#your-library h3,
 #main-container h4,
 #search h4,
+#your-library h4,
 #main-container h5,
 #search h5,
+#your-library h5,
 #main-container h6,
-#search h6 {
+#search h6,
+#your-library h6 {
   color: #fff;
 }
 
 #main-container h2,
-#search h2 {
+#search h2,
+#your-library h2 {
   letter-spacing: -5px;
   line-height: 4rem;
   font-size: 4rem;
@@ -311,7 +317,7 @@ aside {
 }
 
 #main-container h3,
-#search h3 {
+#search h3. #your-library h3 {
   letter-spacing: -2px;
   user-select: none;
   font-size: 2rem;
@@ -319,7 +325,8 @@ aside {
 }
 
 #main-container p,
-#search p {
+#search p,
+#your-library p {
   color: rgba(214, 214, 214, 0.877);
   font-family: helvetica;
   margin: 0;
@@ -421,7 +428,8 @@ aside#search {
   background-image: linear-gradient(135deg, #0f0f0f 0%, #1b1b1b 100%);
 }
 
-#search .top-wrapper input {
+#search .top-wrapper input,
+#your-library .top-wrapper input {
   padding: 14px 20px 14px 45px;
   border-radius: 30px;
   border: none;
@@ -431,16 +439,19 @@ aside#search {
 }
 
 @media (max-width: 768px) {
-  #search .top-wrapper input {
+  #search .top-wrapper input,
+  #your-library .top-wrapper input {
     width: 100%;
   }
 }
 
-#search .top-wrapper .search-bar {
+#search .top-wrapper .search-bar,
+#your-library .top-wrapper .search-bar {
   position: relative;
 }
 
-#search .top-wrapper .search-bar .fa-search {
+#search .top-wrapper .search-bar .fa-search,
+#your-library .top-wrapper .search-bar .fa-search {
   position: absolute;
   left: 16px;
   top: 18px;
@@ -501,4 +512,23 @@ aside#search {
 aside#your-library {
   background-color: #0f0f0f;
   background-image: linear-gradient(135deg, #0f0f0f 0%, #1b1b1b 100%);
+}
+
+#your-library ul li {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+#your-library ul li a,
+#your-library ul {
+  margin: 0;
+  border-radius: 6px;
+  transition: background-color 0.25s ease;
+  border: none;
+}
+
+#your-library ul li a.active {
+  background-color: rgba(255, 255, 255, 0.05);
 }
