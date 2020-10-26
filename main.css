@@ -172,7 +172,7 @@ aside {
 .content-wrapper {
   background-color: rgba(0, 0, 0, 0.2);
   border-radius: 2rem;
-  padding: 4rem;
+  padding: 3rem;
 }
 
 /*********** MAIN CONTAINER NAVIGATION STYLING ***********/
@@ -184,6 +184,7 @@ aside {
 #main-container ul li a {
   margin: 0;
   padding: 10px 20px;
+  letter-spacing: 1px;
 }
 
 #main-container .nav-tabs {
@@ -247,6 +248,11 @@ h3 {
 
 #main-container h2 {
   font-size: 4rem;
+}
+
+#main-container h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 #main-container p {
