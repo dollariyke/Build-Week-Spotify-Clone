@@ -86,7 +86,7 @@
     </section>
 
     <!--********** ASIDE SECTION **********-->
-    <aside>
+    <aside class="trending-bg">
       <div id="main-container">
         <div class="home-nav">
           <ul
@@ -103,6 +103,7 @@
                 role="tab"
                 aria-controls="trending"
                 aria-selected="true"
+                onclick="switchBGColour()"
                 >TRENDING</a
               >
             </li>
@@ -115,6 +116,7 @@
                 role="tab"
                 aria-controls="podcast"
                 aria-selected="false"
+                onclick="switchBGColour()"
                 >PODCAST</a
               >
             </li>
@@ -127,6 +129,7 @@
                 role="tab"
                 aria-controls="moods and genres"
                 aria-selected="false"
+                onclick="switchBGColour()"
                 >MOODS AND GENRES</a
               >
             </li>
@@ -139,6 +142,7 @@
                 role="tab"
                 aria-controls="new releases"
                 aria-selected="false"
+                onclick="switchBGColour()"
                 >NEW RELEASES</a
               >
             </li>
@@ -151,6 +155,7 @@
                 role="tab"
                 aria-controls="discover"
                 aria-selected="false"
+                onclick="switchBGColour()"
                 >DISCOVER</a
               >
             </li>
@@ -165,115 +170,27 @@
               role="tabpanel"
               aria-labelledby="trending-tab"
             >
-              <h2 class="mb-5">#TRENDING</h2>
-              <div
-                class="album-header-wrapper d-flex justify-content-between align-items-center"
-              >
-                <h3>Popular albums</h3>
-                <a
-                  data-toggle="collapse"
-                  href="#popularAlbums"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls="collapseExample"
+              <h2 class="mb-5">#Trending</h2>
+              <div class="content-wrapper">
+                <div
+                  class="album-header-wrapper d-flex justify-content-between align-items-center"
                 >
-                  See all
-                </a>
-              </div>
-
-              <!-- POPULAR ALBUMS -->
-              <div id="popular-albums-container" class="mb-0 mb-xl-4">
-                <div class="row mb-0 mb-xl-4">
-                  <!-- CARD 1 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                  <h3>Popular albums</h3>
+                  <a
+                    data-toggle="collapse"
+                    href="#popularAlbums"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
                   >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 2 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 3 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 4 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 5 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 6 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
+                    See all
+                  </a>
                 </div>
-              </div>
 
-              <!-- POPULAR COLLAPSE CONTAINER -->
-              <div class="collapse" id="popularAlbums">
-                <div class="expand-section">
+                <!-- POPULAR ALBUMS -->
+                <div id="popular-albums-container" class="mb-0 mb-xl-4">
                   <div class="row mb-0 mb-xl-4">
+                    <!-- CARD 1 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
                     >
@@ -286,6 +203,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 2 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
                     >
@@ -298,6 +217,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 3 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
                     >
@@ -310,6 +231,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 4 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
                     >
@@ -322,6 +245,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 5 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
                     >
@@ -334,6 +259,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 6 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
                     >
@@ -348,117 +275,107 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- TRENDING NOW CONTENT -->
-              <div
-                class="album-header-wrapper d-flex justify-content-between align-items-center"
-              >
-                <h3>Trending Now</h3>
-                <a
-                  data-toggle="collapse"
-                  href="#trendingNow"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls="collapseExample"
+                <!-- POPULAR COLLAPSE CONTAINER -->
+                <div class="collapse" id="popularAlbums">
+                  <div class="expand-section">
+                    <div class="row mb-0 mb-xl-4">
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- TRENDING NOW CONTENT -->
+                <div
+                  class="album-header-wrapper d-flex justify-content-between align-items-center"
                 >
-                  See all
-                </a>
-              </div>
-
-              <!-- TRENDING NOW ALBUMS -->
-              <div id="trending-now-albums-container" class="mb-0 mb-xl-4">
-                <div class="row mb-0 mb-0 mb-xl-4">
-                  <!-- CARD 1 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                  <h3>Trending Now</h3>
+                  <a
+                    data-toggle="collapse"
+                    href="#trendingNow"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
                   >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 2 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 3 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 4 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 5 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
-
-                  <!-- CARD 6 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
-                    </div>
-                  </div>
+                    See all
+                  </a>
                 </div>
-              </div>
 
-              <!-- TRENDING NOW COLLAPSE CONTAINER -->
-              <div class="collapse" id="trendingNow">
-                <div class="expand-section">
-                  <div class="row mb-0 mb-xl-4">
+                <!-- TRENDING NOW ALBUMS -->
+                <div id="trending-now-albums-container" class="mb-0 mb-xl-4">
+                  <div class="row mb-0 mb-0 mb-xl-4">
+                    <!-- CARD 1 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
                     >
@@ -471,6 +388,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 2 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
                     >
@@ -483,6 +402,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 3 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
                     >
@@ -495,6 +416,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 4 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
                     >
@@ -507,6 +430,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 5 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
                     >
@@ -519,6 +444,8 @@
                         <p>Artist</p>
                       </div>
                     </div>
+
+                    <!-- CARD 6 -->
                     <div
                       class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
                     >
@@ -533,187 +460,267 @@
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- FOCUS CONTENT -->
-              <div
-                class="album-header-wrapper d-flex justify-content-between align-items-center"
-              >
-                <h3>Focus</h3>
-                <a
-                  data-toggle="collapse"
-                  href="#focus"
-                  role="button"
-                  aria-expanded="false"
-                  aria-controls="collapseExample"
+                <!-- TRENDING NOW COLLAPSE CONTAINER -->
+                <div class="collapse" id="trendingNow">
+                  <div class="expand-section">
+                    <div class="row mb-0 mb-xl-4">
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FOCUS CONTENT -->
+                <div
+                  class="album-header-wrapper d-flex justify-content-between align-items-center"
                 >
-                  See all
-                </a>
-              </div>
-
-              <!-- FOCUS ALBUMS -->
-              <div id="trending-now-albums-container" class="mb-0 mb-xl-4">
-                <div class="row mb-0 mb-xl-4">
-                  <!-- CARD 1 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                  <h3>Focus</h3>
+                  <a
+                    data-toggle="collapse"
+                    href="#focus"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
                   >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
+                    See all
+                  </a>
+                </div>
+
+                <!-- FOCUS ALBUMS -->
+                <div id="trending-now-albums-container" class="mb-0 mb-xl-4">
+                  <div class="row mb-0 mb-xl-4">
+                    <!-- CARD 1 -->
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                    >
+                      <div class="album-card">
+                        <img
+                          src="https://via.placeholder.com/150"
+                          class="img-full"
+                        />
+                        <h5>Title #1</h5>
+                        <p>Artist</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- CARD 2 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
+                    <!-- CARD 2 -->
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                    >
+                      <div class="album-card">
+                        <img
+                          src="https://via.placeholder.com/150"
+                          class="img-full"
+                        />
+                        <h5>Title #1</h5>
+                        <p>Artist</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- CARD 3 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
+                    <!-- CARD 3 -->
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                    >
+                      <div class="album-card">
+                        <img
+                          src="https://via.placeholder.com/150"
+                          class="img-full"
+                        />
+                        <h5>Title #1</h5>
+                        <p>Artist</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- CARD 4 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
+                    <!-- CARD 4 -->
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                    >
+                      <div class="album-card">
+                        <img
+                          src="https://via.placeholder.com/150"
+                          class="img-full"
+                        />
+                        <h5>Title #1</h5>
+                        <p>Artist</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- CARD 5 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
+                    <!-- CARD 5 -->
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                    >
+                      <div class="album-card">
+                        <img
+                          src="https://via.placeholder.com/150"
+                          class="img-full"
+                        />
+                        <h5>Title #1</h5>
+                        <p>Artist</p>
+                      </div>
                     </div>
-                  </div>
 
-                  <!-- CARD 6 -->
-                  <div
-                    class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                  >
-                    <div class="album-card">
-                      <img
-                        src="https://via.placeholder.com/150"
-                        class="img-full"
-                      />
-                      <h5>Title #1</h5>
-                      <p>Artist</p>
+                    <!-- CARD 6 -->
+                    <div
+                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                    >
+                      <div class="album-card">
+                        <img
+                          src="https://via.placeholder.com/150"
+                          class="img-full"
+                        />
+                        <h5>Title #1</h5>
+                        <p>Artist</p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- FOCUS COLLAPSE CONTAINER -->
-              <div class="collapse" id="focus">
-                <div class="expand-section">
-                  <div class="row mb-0 mb-xl-4">
-                    <div
-                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                    >
-                      <div class="album-card">
-                        <img
-                          src="https://via.placeholder.com/150"
-                          class="img-full"
-                        />
-                        <h5>Title #1</h5>
-                        <p>Artist</p>
+                <!-- FOCUS COLLAPSE CONTAINER -->
+                <div class="collapse" id="focus">
+                  <div class="expand-section">
+                    <div class="row mb-0 mb-xl-4">
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                    >
-                      <div class="album-card">
-                        <img
-                          src="https://via.placeholder.com/150"
-                          class="img-full"
-                        />
-                        <h5>Title #1</h5>
-                        <p>Artist</p>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                    >
-                      <div class="album-card">
-                        <img
-                          src="https://via.placeholder.com/150"
-                          class="img-full"
-                        />
-                        <h5>Title #1</h5>
-                        <p>Artist</p>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                    >
-                      <div class="album-card">
-                        <img
-                          src="https://via.placeholder.com/150"
-                          class="img-full"
-                        />
-                        <h5>Title #1</h5>
-                        <p>Artist</p>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
-                    >
-                      <div class="album-card">
-                        <img
-                          src="https://via.placeholder.com/150"
-                          class="img-full"
-                        />
-                        <h5>Title #1</h5>
-                        <p>Artist</p>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pr-3 pr-md-2 pr-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
-                    >
-                      <div class="album-card">
-                        <img
-                          src="https://via.placeholder.com/150"
-                          class="img-full"
-                        />
-                        <h5>Title #1</h5>
-                        <p>Artist</p>
+                      <div
+                        class="col-sm-12 col-md-6 col-lg-4 col-xl-2 mb-2 mb-xl-0 pl-3 pl-md-2 pl-lg-3"
+                      >
+                        <div class="album-card">
+                          <img
+                            src="https://via.placeholder.com/150"
+                            class="img-full"
+                          />
+                          <h5>Title #1</h5>
+                          <p>Artist</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -728,7 +735,7 @@
               role="tabpanel"
               aria-labelledby="podcast-tab"
             >
-              <h2>PODCAST</h2>
+              <h2>#Podcast</h2>
             </div>
 
             <!-- MOODS AND GENRES TAB -->
@@ -738,7 +745,7 @@
               role="tabpanel"
               aria-labelledby="moods-and-genres-tab"
             >
-              <h2>MOODS AND GENRES</h2>
+              <h2>#Moods and Genres</h2>
             </div>
 
             <!-- NEW RELEASES TAB -->
@@ -748,7 +755,7 @@
               role="tabpanel"
               aria-labelledby="new-releases-tab"
             >
-              <h2>NEW RELEASES</h2>
+              <h2>#New Releases</h2>
             </div>
 
             <!-- DISCOVER TAB -->
@@ -758,7 +765,7 @@
               role="tabpanel"
               aria-labelledby="discover-tab"
             >
-              <h2>DISCOVER</h2>
+              <h2>#Discover</h2>
             </div>
           </div>
         </div>

@@ -143,15 +143,36 @@ aside {
   height: 100%;
   min-height: 100vh;
   width: calc(100% - 230px);
-  background: linear-gradient(
-    165deg,
-    rgba(4, 73, 124, 1) 0%,
-    rgba(1, 14, 23, 1) 100%
-  );
   position: relative;
   left: 230px;
   z-index: 0;
   padding: 50px;
+}
+
+.trending-bg {
+  background: linear-gradient(165deg, rgb(4, 73, 124) 0%, rgb(1, 14, 23) 100%);
+}
+
+.podcasts-bg {
+  background: linear-gradient(165deg, rgb(124, 72, 4) 0%, rgb(23, 14, 1) 100%);
+}
+
+.moods-bg {
+  background: linear-gradient(165deg, rgb(4, 124, 104) 0%, rgb(1, 23, 19) 100%);
+}
+
+.newreleases-bg {
+  background: linear-gradient(165deg, rgb(99, 6, 153) 0%, rgb(18, 1, 23) 100%);
+}
+
+.discover-bg {
+  background: linear-gradient(165deg, rgb(8, 124, 4) 0%, rgb(1, 23, 5) 100%);
+}
+
+.content-wrapper {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 2rem;
+  padding: 4rem;
 }
 
 /*********** MAIN CONTAINER NAVIGATION STYLING ***********/
@@ -217,6 +238,15 @@ h4,
 h5,
 h6 {
   color: #fff;
+}
+
+#main-container h2,
+h3 {
+  letter-spacing: -2px;
+}
+
+#main-container h2 {
+  font-size: 4rem;
 }
 
 #main-container p {
