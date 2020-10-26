@@ -26,7 +26,9 @@ body {
   height: 100vh;
   font-weight: bold;
   position: fixed;
+  display: block;
   left: 0;
+  z-index: 999;
 }
 
 .navbar-wrapper {
@@ -48,11 +50,27 @@ ul {
 
 ul li {
   list-style-type: none;
-  margin: 20px 0px;
+  transition: border 0.25s ease;
+}
+
+#navigation .nav-links ul li {
   width: 100%;
   padding: 10px 0px;
-  border-left: 0px solid transparent;
-  transition: border 0.25s ease;
+}
+
+#navigation ul li a {
+  display: block;
+}
+
+#navigation .nav-footer ul li {
+  display: inline-block;
+  font-size: 14px;
+  margin: 0;
+  width: 40%;
+}
+
+#navigation .nav-footer ul li a {
+  margin: 0;
 }
 
 .fa-home,
@@ -63,7 +81,6 @@ ul li {
 
 ul li a {
   color: rgba(214, 214, 214, 0.877);
-  width: 100%;
   padding: 10px 0px;
   margin-left: 34px;
   transition: color 0.25s ease;
@@ -114,29 +131,136 @@ button {
   background: rgba(255, 255, 255, 0.2);
 }
 
-.nav-footer li {
-  font-size: 14px;
-  display: inline-block;
-  margin: 0;
-  width: 40%;
-}
-
-.nav-footer li a {
-  margin: 0;
-}
-
 .brdr-r {
   border-right: 1px solid rgba(255, 255, 255, 0.103);
 }
 
 /*****************************************************/
 
+/*********** MAIN CONTAINER STYLING ***********/
+
 aside {
-  height: 100vh;
-  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+  width: calc(100% - 230px);
   background: linear-gradient(
-    45deg,
+    165deg,
     rgba(4, 73, 124, 1) 0%,
     rgba(1, 14, 23, 1) 100%
   );
+  position: relative;
+  left: 230px;
+  z-index: 0;
+  padding: 50px;
+}
+
+/*********** MAIN CONTAINER NAVIGATION STYLING ***********/
+
+.home-nav {
+  width: 100%;
+}
+
+#main-container ul li a {
+  margin: 0;
+  padding: 10px 20px;
+}
+
+#main-container .nav-tabs {
+  border: none;
+  background-color: transparent;
+  margin-bottom: 4rem;
+}
+
+#main-container .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link {
+  border: none;
+}
+
+#main-container .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+  background-color: transparent;
+  color: #fff;
+  border: none;
+}
+
+#main-container a::after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 40%;
+  transform: translateY(-20px);
+  border-bottom: 3px solid transparent;
+  transition: border 0.25s ease, transform 0.25s ease;
+}
+
+#main-container a.active::after {
+  content: "";
+  display: block;
+  margin: 0 auto;
+  width: 60%;
+  transform: translateY(6px);
+  border-bottom: 3px solid #1ed760;
+}
+
+#main-container .nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link:hover {
+  border: none;
+}
+
+/*****************************************************/
+
+/*********** MAIN CONTAINER STYLING ***********/
+
+#main-container h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #fff;
+}
+
+#main-container p {
+  color: rgba(214, 214, 214, 0.877);
+  font-family: helvetica;
+  margin: 0;
+}
+
+#main-container img {
+  border-radius: 4px;
+}
+
+#main-container .tab-content > .active {
+  width: 100%;
+}
+
+#main-container .album-header-wrapper a {
+  color: rgba(214, 214, 214, 0.877);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+#main-container .album-header-wrapper a:hover {
+  color: #fff;
+}
+
+#main-container .img-full {
+  width: 100%;
+}
+
+#main-container .expand-section {
+  color: #fff;
+}
+
+#main-container .album-card {
+  border-radius: 8px;
+  background-color: rgba(0, 0, 0, 0.151);
+  padding: 20px;
+}
+
+#main-container .album-card h5 {
+  margin-top: 10px;
+}
+
+#main-container div.album-header-wrapper:not(:first-child) {
+  margin-top: 5rem;
 }
