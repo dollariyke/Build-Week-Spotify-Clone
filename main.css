@@ -497,3 +497,8 @@ aside#search {
 /*****************************************************/
 
 /*********** YOUR LIBRARY STYLING ***********/
+
+aside#your-library {
+  background-color: #0f0f0f;
+  background-image: linear-gradient(135deg, #0f0f0f 0%, #1b1b1b 100%);
+}

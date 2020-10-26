@@ -64,7 +64,6 @@ function switchActive() {
       e.classList.remove("active");
     }
   });
-
   clickedLink.classList.add("active");
 }
 
@@ -116,27 +115,35 @@ function generateBrowse() {
       newCard.classList.add("browse-card");
       newCard.style.backgroundColor = `rgb(${randomColour})`;
       newCard.innerHTML = `<h4 class="text-left">${browseCategories[i]}</h4>`;
+
       browseBody.appendChild(newCard);
     }
   }
-
   loadBrowseSection = true;
 }
 
-function showMain() {
-  const searchContainer = document.querySelector("#search");
-  const mainContainer = document.querySelector("#main");
+function showSection() {
+  const sections = document.querySelectorAll("aside");
+  const clickedLink = event.currentTarget.innerText;
 
-  mainContainer.classList.remove("d-none");
-  searchContainer.classList.add("d-none");
-}
-
-function showSearch() {
-  const searchContainer = document.querySelector("#search");
-  const mainContainer = document.querySelector("#main");
-
-  mainContainer.classList.add("d-none");
-  searchContainer.className = "";
-
-  generateBrowse();
+  switch (clickedLink) {
+    case "Home":
+      sections[1].classList.add("d-none");
+      sections[2].classList.add("d-none");
+      sections[0].classList.remove("d-none");
+      break;
+    case "Search":
+      sections[0].classList.add("d-none");
+      sections[2].classList.add("d-none");
+      sections[1].classList.remove("d-none");
+      generateBrowse();
+      break;
+    case "Your Library":
+      sections[0].classList.add("d-none");
+      sections[1].classList.add("d-none");
+      sections[2].classList.remove("d-none");
+      break;
+    default:
+  }
+  switchActive();
 }
