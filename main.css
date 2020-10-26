@@ -1,17 +1,3 @@
-::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-}
-::-webkit-scrollbar-button {
-  width: 0px;
-  height: 0px;
-}
-::-webkit-scrollbar-thumb {
-  background: #e1e1e1;
-  border: 0px none #ffffff;
-  border-radius: 50px;
-}
-
 @font-face {
   font-family: "Circular";
   src: url("https://www.bu.edu/cdn/fonts/Circular/Circular-Bold.eot");
@@ -27,4 +13,130 @@
 
 body {
   font-family: "Circular", Helvetica, Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/*********** NAVIGATION STYLING ***********/
+
+#navigation {
+  background-color: #000;
+  width: 230px;
+  height: 100vh;
+  font-weight: bold;
+  position: fixed;
+  left: 0;
+}
+
+.navbar-wrapper {
+  height: 100%;
+}
+
+.navbar-logo-wrapper {
+  padding: 30px;
+}
+
+.navbar-logo {
+  fill: currentColor;
+  color: #fff;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li {
+  list-style-type: none;
+  margin: 20px 0px;
+  width: 100%;
+  padding: 10px 0px;
+  border-left: 0px solid transparent;
+  transition: border 0.25s ease;
+}
+
+.fa-home,
+.fa-search,
+.fa-record-vinyl {
+  margin-right: 14px;
+}
+
+ul li a {
+  color: rgba(214, 214, 214, 0.877);
+  width: 100%;
+  padding: 10px 0px;
+  margin-left: 34px;
+  transition: color 0.25s ease;
+}
+
+ul li a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+
+ul li.active {
+  border-left: 6px solid #1ed760;
+}
+
+ul li.active a {
+  margin-left: 28px;
+}
+
+.nav-links {
+  min-height: 60%;
+}
+
+button {
+  border-radius: 30px;
+  padding: 6px 0px;
+  margin-bottom: 20px;
+  border: 1px solid #fff;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+  transition: background 0.25s ease, border 0.25s ease;
+}
+
+#sign-up {
+  background-color: #fff;
+}
+
+#sign-up:hover {
+  background-color: #1ed760;
+  border: 1px solid #1ed760;
+}
+
+#log-in {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+#log-in:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.nav-footer li {
+  font-size: 14px;
+  display: inline-block;
+  margin: 0;
+  width: 40%;
+}
+
+.nav-footer li a {
+  margin: 0;
+}
+
+.brdr-r {
+  border-right: 1px solid rgba(255, 255, 255, 0.103);
+}
+
+/*****************************************************/
+
+aside {
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(4, 73, 124, 1) 0%,
+    rgba(1, 14, 23, 1) 100%
+  );
 }
