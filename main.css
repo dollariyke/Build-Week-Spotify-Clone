@@ -16,6 +16,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  height: 100%;
 }
 
 /*********** NAVIGATION STYLING ***********/
@@ -456,6 +457,7 @@ aside#search {
   transform: scale(1);
   transition: transform 0.25s ease;
   position: relative;
+  vertical-align: top;
 }
 
 #search .browse-card::before {
@@ -491,3 +493,7 @@ aside#search {
 #search .browse-card #search .row {
   margin-bottom: 1rem;
 }
+
+/*****************************************************/
+
+/*********** YOUR LIBRARY STYLING ***********/
