@@ -1,59 +1,12 @@
-const browseCategories = [
-  "Podcasts",
-  "Made For You",
-  "Charts",
-  "New Releases",
-  "Discover",
-  "COVID-19 Guide",
-  "Black History Is Now",
-  "Pop",
-  "Hip Hop",
-  "Mood",
-  "Workout",
-  "Alternative",
-  "At Home",
-  "Rock",
-  "Shows with music",
-  "Dance / Electronic",
-  "In the car",
-  "R&B",
-  "Party",
-  "Indie",
-  "Chill",
-  "Throwback",
-  "Caribbean",
-  "Gaming",
-  "Sleep",
-  "Pride",
-  "Classical",
-  "Wellness",
-  "Spotify Singles",
-  "Trending",
-  "Desi",
-  "Jazz",
-  "RADAR",
-  "Tastemakers",
-  "Afro",
-  "League of Legends",
-  "Country",
-  "Romance",
-  "Metal",
-  "Focus",
-  "Soul",
-  "Comedy",
-  "Folk & Acoustic",
-  "Student",
-  "Arab",
-  "Punk",
-  "Kids & Family",
-  "Cooking & Dining",
-  "K-Pop",
-  "Blues",
-  "Travel",
-  "Latin",
-  "Funk",
-  "Listening Together",
-];
+/* GLOBAL VARIABLES */
+
+const allGenres = [];
+let randomColour;
+let loadBrowseSection = false;
+
+/******************************************************************/
+
+/* SWITCH ACTIVE FUNCTION */
 
 function switchActive() {
   const clickedLink = event.currentTarget.parentNode;
@@ -66,6 +19,10 @@ function switchActive() {
   });
   clickedLink.classList.add("active");
 }
+
+/******************************************************************/
+
+/* SWITCH BG FUNCTION */
 
 function switchBGColour() {
   const aside = document.querySelector("aside");
@@ -94,8 +51,9 @@ function switchBGColour() {
   }
 }
 
-let randomColour;
-let loadBrowseSection = false;
+/******************************************************************/
+
+/* RANDOM COLOUR FUNCTION */
 
 function getRandomColour() {
   let randomColourR = Math.floor(Math.random() * 166) + 89;
@@ -104,23 +62,33 @@ function getRandomColour() {
   randomColour = `${randomColourR},${randomColourG},${randomColourB}`;
 }
 
-function generateBrowse() {
+/******************************************************************/
+
+/* GENERATE GENRES FUNCTION */
+
+const generateGenres = async () => {
+  const data = await getGenres();
+
   if (loadBrowseSection === false) {
     const browseBody = document.querySelector("#search .main-wrapper");
-
-    for (let i = 0; i < browseCategories.length; i++) {
+    data.forEach((e) => {
       getRandomColour();
 
       const newCard = document.createElement("div");
-      newCard.classList.add("browse-card");
+      newCard.classList.add("browse-card", "swing-in-top-fwd");
       newCard.style.backgroundColor = `rgb(${randomColour})`;
-      newCard.innerHTML = `<h4 class="text-left">${browseCategories[i]}</h4>`;
+      newCard.innerHTML = `<h4 class="text-left">${e.name}</h4>`;
 
       browseBody.appendChild(newCard);
-    }
+    });
   }
+
   loadBrowseSection = true;
-}
+};
+
+/******************************************************************/
+
+/* SHOW SECTION FUNCTION */
 
 function showSection() {
   const sections = document.querySelectorAll("aside");
@@ -136,7 +104,7 @@ function showSection() {
       sections[0].classList.add("d-none");
       sections[2].classList.add("d-none");
       sections[1].classList.remove("d-none");
-      generateBrowse();
+      generateGenres();
       break;
     case "Your Library":
       sections[0].classList.add("d-none");
@@ -148,29 +116,28 @@ function showSection() {
   switchActive();
 }
 
-const onLoad = async () => {
-  const data = await deezer("album/119606");
+/******************************************************************/
 
-  console.log(data);
-  const idNumber = data.artist.name;
-  console.log(idNumber);
-};
+/* SEARCH FUNCTION */
 
 const search = async () => {
   if (event.keyCode === 13) {
+    const searchMainContainer = document.querySelector("#search-content");
+    const firstRow = document.querySelector("#search-row");
+
     const searchInput = document.querySelector(".search-bar input").value;
     document.querySelector(".search-bar input").value = "";
 
     const searchContent = document.querySelector("#search-row");
     searchContent.innerHTML = "";
 
+    const searchHeader = document.querySelector(".search-header");
+    searchHeader.innerText = `Search results for "${searchInput}"...`;
+    searchMainContainer.appendChild(firstRow);
+
     const data = await deezer(`search?q=${searchInput}`);
 
-    console.log(data);
-
-    for (let i = 0; i < data.data.length; i++) {
-      const firstRow = document.querySelector("#search-row");
-
+    for (let i = 0; i < data.data.length - 1; i++) {
       const newCard = document.createElement("div");
       newCard.classList.add(
         "col-sm-12",
@@ -185,7 +152,10 @@ const search = async () => {
       const newCardContent = document.createElement("div");
       newCardContent.classList.add("album-card", "flip-in-hor-bottom");
 
-      newCardContent.innerHTML = `<img src="${data.data[i].album.cover_xl}" class="img-fluid"/><h5>${data.data[i].title}</h5><p>${data.data[i].artist.name}`;
+      newCardContent.innerHTML =
+        `<img src="${data.data[i].album.cover_xl}" class="img-fluid"/>` +
+        `<h5>${data.data[i].title}</h5>` +
+        `<p>${data.data[i].artist.name}</p>`;
 
       newCard.appendChild(newCardContent);
       firstRow.appendChild(newCard);
@@ -193,6 +163,4 @@ const search = async () => {
   }
 };
 
-// Create a row
-// Create 6 cards and insert into the row
-// Append row to main
+/******************************************************************/
