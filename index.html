@@ -30,6 +30,9 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;800;900&display=swap"
       rel="stylesheet"
     />
+    <script src="env.js"></script>
+    <script src="api.js"></script>
+    <script src="main.js"></script>
   </head>
 
   <body>
@@ -2457,11 +2460,17 @@
               class="d-inline-block"
               type="text"
               placeholder="Search for Artists, Songs, or Podcasts"
+              onkeyup="search()"
             />
             <div class="fa fa-search"></div>
           </div>
         </div>
         <div class="main-wrapper swing-in-top-fwd">
+          <div id="search-content">
+            <div id="search-row" class="row mb-0 mb-xl-4">
+              <!-- INSERT SEARCH CARDS HERE -->
+            </div>
+          </div>
           <h4 class="my-4">Browse All</h4>
           <!-- INSERT BROWSE CARDS HERE -->
         </div>
@@ -2562,7 +2571,6 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="main.js"></script>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

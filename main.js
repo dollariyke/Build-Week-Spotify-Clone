@@ -147,3 +147,52 @@ function showSection() {
   }
   switchActive();
 }
+
+const onLoad = async () => {
+  const data = await deezer("album/119606");
+
+  console.log(data);
+  const idNumber = data.artist.name;
+  console.log(idNumber);
+};
+
+const search = async () => {
+  if (event.keyCode === 13) {
+    const searchInput = document.querySelector(".search-bar input").value;
+    document.querySelector(".search-bar input").value = "";
+
+    const searchContent = document.querySelector("#search-row");
+    searchContent.innerHTML = "";
+
+    const data = await deezer(`search?q=${searchInput}`);
+
+    console.log(data);
+
+    for (let i = 0; i < data.data.length; i++) {
+      const firstRow = document.querySelector("#search-row");
+
+      const newCard = document.createElement("div");
+      newCard.classList.add(
+        "col-sm-12",
+        "col-md-6",
+        "col-lg-4",
+        "col-xl-2",
+        "mb-2",
+        "px-0",
+        "pr-md-2"
+      );
+
+      const newCardContent = document.createElement("div");
+      newCardContent.classList.add("album-card", "flip-in-hor-bottom");
+
+      newCardContent.innerHTML = `<img src="${data.data[i].album.cover_xl}" class="img-fluid"/><h5>${data.data[i].title}</h5><p>${data.data[i].artist.name}`;
+
+      newCard.appendChild(newCardContent);
+      firstRow.appendChild(newCard);
+    }
+  }
+};
+
+// Create a row
+// Create 6 cards and insert into the row
+// Append row to main
