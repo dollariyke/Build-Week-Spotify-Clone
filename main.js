@@ -1,6 +1,21 @@
 /* GLOBAL VARIABLES */
 
 const allGenres = [];
+const popularAlbums = [
+  "176538582",
+  "11244086",
+  "161984202",
+  "162683632",
+  "157795452",
+  "137217782",
+  "169236642",
+  "110040592",
+  "91598612",
+  "122429752",
+  "159826232",
+  "15478674",
+];
+
 let randomColour;
 let loadBrowseSection = false;
 
@@ -146,11 +161,12 @@ const search = async () => {
         "col-xl-2",
         "mb-2",
         "px-0",
-        "pr-md-2"
+        "pr-md-2",
+        "flip-in-hor-bottom"
       );
 
       const newCardContent = document.createElement("div");
-      newCardContent.classList.add("album-card", "flip-in-hor-bottom");
+      newCardContent.classList.add("album-card");
 
       newCardContent.innerHTML =
         `<img src="${data.data[i].album.cover_xl}" class="img-fluid"/>` +
@@ -164,3 +180,73 @@ const search = async () => {
 };
 
 /******************************************************************/
+
+/* GENERATE POPULAR ALBUMS FUNCTION */
+
+const generatePopularAlbums = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`album/${popularAlbums[i]}`);
+    const popularAlbumsRow = document.querySelector("#popular-albums-row");
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "pr-lg-3",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.artist.name}</p>`;
+
+    newCol.appendChild(newCard);
+    popularAlbumsRow.appendChild(newCol);
+  }
+
+  /* Fill expand 6 */
+  for (let i = 6; i < 12; i++) {
+    const data = await deezer(`album/${popularAlbums[i]}`);
+    const popularAlbumsExpandRow = document.querySelector(
+      "#popular-expand-section"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "pr-lg-3"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.artist.name}</p>`;
+
+    newCol.appendChild(newCard);
+    popularAlbumsExpandRow.appendChild(newCol);
+  }
+};
+
+/******************************************************************/
+
+window.onload = generatePopularAlbums;
+
+const find = async () => {
+  const data = await deezer(`search?q=edsheeran`);
+  console.log(data);
+};

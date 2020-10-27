@@ -366,16 +366,9 @@ aside {
   background-color: rgba(255, 255, 255, 0.05);
   padding: 20px;
   transform: scale(1);
-  transition: transform 0.25s ease !important;
+  transition: transform 0.25s ease, background-color 0.25s ease;
   cursor: pointer;
-}
-
-#search-content .album-card {
   height: 100%;
-}
-
-#search-content div.album-card {
-  transition: background-color 0.25s ease;
 }
 
 #search-content .album-card h5 {
@@ -388,7 +381,7 @@ aside {
 
 #search-content .album-card:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  transform: scale(1.05) !important;
+  transform: scale(1.05);
 }
 
 #main-container .album-card h5,
@@ -581,6 +574,28 @@ aside#your-library {
   100% {
     -webkit-transform: rotateX(0);
     transform: rotateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  -webkit-animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: fade-in 1.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
     opacity: 1;
   }
 }
