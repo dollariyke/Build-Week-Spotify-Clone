@@ -129,12 +129,6 @@ const bestNewReleases = [
   "1115454582",
   "1116144312",
   "1116224522",
-  "1116446022",
-  "1095328142",
-  "1108971342",
-  "1108187032",
-  "1110656752",
-  "1093871482",
 ];
 
 const newAlbumsAndSingles = [
@@ -186,6 +180,8 @@ let randomColour;
 let loadBrowseSection = false;
 let loadPodcastSecion = false;
 let loadMoodsAndGenresSection = false;
+let loadNewReleasesSection = false;
+let loadDiscoverSection = false;
 
 /******************************************************************/
 
@@ -238,6 +234,10 @@ function switchBGColour() {
     case "NEW RELEASES":
       aside.className = "";
       aside.classList.add("newreleases-bg");
+      if (loadNewReleasesSection === false) {
+        generateBestNewReleases();
+        loadNewReleasesSection = true;
+      }
       break;
     default:
       aside.className = "";
@@ -913,6 +913,41 @@ const generateRelaxMood = async () => {
 
     newCol.appendChild(newCard);
     workoutExpandRow.appendChild(newCol);
+  }
+};
+
+/*********************************************************************/
+
+/* GENERATE THE BEST NEW RELEASES ALBUMS FUNCTION */
+
+const generateBestNewReleases = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`track/${bestNewReleases[i]}`);
+    const bestNewReleasesRow = document.querySelector("#best-new-releases-row");
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.album.cover_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.artist.name}</p>`;
+
+    newCol.appendChild(newCard);
+    bestNewReleasesRow.appendChild(newCol);
   }
 };
 
