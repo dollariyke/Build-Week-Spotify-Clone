@@ -132,18 +132,18 @@ const bestNewReleases = [
 ];
 
 const newAlbumsAndSingles = [
-  "176538582",
-  "11244086",
-  "161984202",
-  "162683632",
-  "157795452",
-  "137217782",
   "169236642",
   "110040592",
   "91598612",
   "122429752",
   "159826232",
   "15478674",
+  "176538582",
+  "11244086",
+  "161984202",
+  "162683632",
+  "157795452",
+  "137217782",
 ];
 
 const tracksJustForYou = [
@@ -243,6 +243,11 @@ function switchBGColour() {
     default:
       aside.className = "";
       aside.classList.add("discover-bg");
+      if (loadDiscoverSection === false) {
+        generateTracksJustForYou();
+        generatePlaylistsForYou();
+        loadDiscoverSection = true;
+      }
   }
 }
 
@@ -313,6 +318,65 @@ function showSection() {
 
 /******************************************************************/
 
+/* SHOW ARTIST PAGE FUNCTION */
+
+const showArtistPage = async (artist) => {
+  const artistPage = document.querySelector("#artist-page");
+  const mainPage = document.querySelector("#main");
+  const searchPage = document.querySelector("#search");
+
+  const artistAlbumRow = document.querySelector("#artist-album-row");
+  artistAlbumRow.innerHTML = "";
+
+  mainPage.classList.add("d-none");
+  searchPage.classList.add("d-none");
+  artistPage.classList.remove("d-none");
+
+  const artistHeader = document.querySelector("h1");
+
+  let albumArray = [];
+
+  const data = await deezer(`search?q=${artist}`);
+  artistHeader.innerText = `${data.data[0].artist.name}`;
+
+  for (let i = 0; i < data.data.length - 1; i++) {
+    albumArray.push(data.data[i].album.id);
+  }
+
+  albumArray = [...new Set(albumArray)];
+
+  const albumArt = document.querySelector(".album-art-jumbotron");
+  albumArt.style.backgroundImage = `url(${data.data[0].artist.picture_xl})`;
+
+  for (let i = 0; i < albumArray.length - 1; i++) {
+    const albumData = await deezer(`album/${albumArray[i]}`);
+    const newCard = document.createElement("div");
+    newCard.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-2",
+      "mb-2",
+      "px-0",
+      "pr-md-2",
+      "flip-in-hor-bottom"
+    );
+
+    const newCardContent = document.createElement("div");
+    newCardContent.classList.add("album-card");
+
+    newCardContent.innerHTML =
+      `<img src="${albumData.cover_medium}" class="img-fluid"/>` +
+      `<h5 class="mb-0">${albumData.title}</h5>` +
+      `<p>${albumData.artist.name}</p>`;
+
+    newCard.appendChild(newCardContent);
+    artistAlbumRow.appendChild(newCard);
+  }
+};
+
+/*********************************************************************/
+
 /* SEARCH FUNCTION */
 
 const search = async () => {
@@ -363,13 +427,17 @@ const search = async () => {
 
     const newCardContent = document.createElement("div");
     newCardContent.classList.add("album-card");
+    newCardContent.addEventListener("click", function () {
+      showArtistPage(`${searchInput}`);
+    });
 
     newCardContent.innerHTML =
-      `<img src="${artistData.picture_medium}" class="img-fluid rounded-circle"/>` +
+      `<img src="${artistData.picture_medium}" class="img-fluid rounded-circle artist-shadow"/>` +
       `<h5 class="mb-0">${artistData.name}</h5>` +
       `<p>Artist</p>`;
 
     newCard.appendChild(newCardContent);
+
     artistRow.appendChild(newCard);
 
     // TRACKS GENERATE
@@ -1016,6 +1084,106 @@ const generateNewAlbumsAndSingles = async () => {
 
     newCol.appendChild(newCard);
     newAlbumsSinglesExpandRow.appendChild(newCol);
+  }
+};
+
+/*********************************************************************/
+
+/* GENERATE TRACKS JUST FOR YOU FUNCTION */
+
+const generateTracksJustForYou = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`album/${tracksJustForYou[i]}`);
+    const tracksForYouRow = document.querySelector("#tracks-for-you-row");
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.artist.name} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    tracksForYouRow.appendChild(newCol);
+  }
+};
+
+/*********************************************************************/
+
+/* GENERATE PLAYLISTS JUST FOR YOU FUNCTION */
+
+const generatePlaylistsForYou = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`playlist/${playlistsJustForYou[i]}`);
+    const playlistsForRow = document.querySelector("#playlists-for-you-row");
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.picture_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.nb_tracks} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    playlistsForRow.appendChild(newCol);
+  }
+
+  /* Fill expand 6 */
+  for (let i = 6; i < 12; i++) {
+    const data = await deezer(`playlist/${playlistsJustForYou[i]}`);
+    const playlistsForYouRow = document.querySelector(
+      "#playlists-for-you-expand-section"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.picture_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.nb_tracks} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    playlistsForYouRow.appendChild(newCol);
   }
 };
 
