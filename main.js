@@ -16,6 +16,23 @@ const popularAlbums = [
   "15478674",
 ];
 
+const trendingNowAlbums = [
+  "180681412",
+  "180996332",
+  "178086012",
+  "180983992",
+  "181446752",
+  "181270962",
+  "179934622",
+  "180450492",
+  "178406382",
+  "179902942",
+  "179906172",
+  "179682412",
+];
+
+const popularPlaylists = ["", "", "", "", "", "", "", "", "", "", "", ""];
+
 let randomColour;
 let loadBrowseSection = false;
 
@@ -85,16 +102,16 @@ const generateGenres = async () => {
   const data = await getGenres();
 
   if (loadBrowseSection === false) {
-    const browseBody = document.querySelector("#search .main-wrapper");
+    const genresContainer = document.querySelector("#genres-wrapper");
     data.forEach((e) => {
       getRandomColour();
 
       const newCard = document.createElement("div");
-      newCard.classList.add("browse-card", "swing-in-top-fwd");
+      newCard.classList.add("browse-card");
       newCard.style.backgroundColor = `rgb(${randomColour})`;
       newCard.innerHTML = `<h4 class="text-left">${e.name}</h4>`;
 
-      browseBody.appendChild(newCard);
+      genresContainer.appendChild(newCard);
     });
   }
 
@@ -136,22 +153,63 @@ function showSection() {
 /* SEARCH FUNCTION */
 
 const search = async () => {
+  // TRIGGER WHEN ENTER IS PRESSED
   if (event.keyCode === 13) {
+    // MAIN SELECTORS
     const searchMainContainer = document.querySelector("#search-content");
-    const firstRow = document.querySelector("#search-row");
+    const songsRow = document.querySelector("#songs-row");
+    const artistRow = document.querySelector("#artist-row");
 
+    // GET INPUT FROM SEARCH BAR AND CLEAR THE BAR
     const searchInput = document.querySelector(".search-bar input").value;
-    document.querySelector(".search-bar input").value = "";
+    document.querySelector(".search-bar input").value = ""; // Empty the search bar
 
-    const searchContent = document.querySelector("#search-row");
-    searchContent.innerHTML = "";
+    // RESET THE CONTAINER
+    songsRow.innerHTML = `<h4 id="tracks-header" class="w-100">Tracks</h4>`; // Empty the search container (to replace a previous search with new content)
+    artistRow.innerHTML = `<h4 id="artist-header" class="w-100">Artist</h4>`; // Empty the search container (to replace a previous search with new content)
 
+    // UPDATE SEARCH FOR TEXT
     const searchHeader = document.querySelector(".search-header");
     searchHeader.innerText = `Search results for "${searchInput}"...`;
-    searchMainContainer.appendChild(firstRow);
+    searchMainContainer.appendChild(artistRow);
 
+    // SHOW ARTIST AND TRACKS TITLES
+    const artistHeader = document.querySelector("#artist-header");
+    const tracksHeader = document.querySelector("#tracks-header");
+    artistHeader.style.opacity = "1";
+    tracksHeader.style.opacity = "1";
+
+    // START API SEARCH
     const data = await deezer(`search?q=${searchInput}`);
 
+    // ARTIST SEARCH AND GENERATE
+    const artistID = data.data[0].artist.id;
+    const artistData = await deezer(`artist/${artistID}`);
+
+    const newCard = document.createElement("div");
+    newCard.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-2",
+      "mb-2",
+      "px-0",
+      "pr-md-2",
+      "flip-in-hor-bottom"
+    );
+
+    const newCardContent = document.createElement("div");
+    newCardContent.classList.add("album-card");
+
+    newCardContent.innerHTML =
+      `<img src="${artistData.picture_xl}" class="img-fluid rounded-circle"/>` +
+      `<h5 class="mb-0">${artistData.name}</h5>` +
+      `<p>Artist</p>`;
+
+    newCard.appendChild(newCardContent);
+    artistRow.appendChild(newCard);
+
+    // TRACKS GENERATE
     for (let i = 0; i < data.data.length - 1; i++) {
       const newCard = document.createElement("div");
       newCard.classList.add(
@@ -170,12 +228,13 @@ const search = async () => {
 
       newCardContent.innerHTML =
         `<img src="${data.data[i].album.cover_xl}" class="img-fluid"/>` +
-        `<h5>${data.data[i].title}</h5>` +
+        `<h5 class="mb-0">${data.data[i].title}</h5>` +
         `<p>${data.data[i].artist.name}</p>`;
 
       newCard.appendChild(newCardContent);
-      firstRow.appendChild(newCard);
+      songsRow.appendChild(newCard);
     }
+    searchMainContainer.appendChild(songsRow);
   }
 };
 
@@ -194,11 +253,12 @@ const generatePopularAlbums = async () => {
       "col-sm-12",
       "col-md-6",
       "col-lg-4",
-      "col-xl-2",
+      "col-xl-3",
+      "col-xxl-2",
       "mb-2",
       "pr-3",
       "pr-md-2",
-      "pr-lg-3",
+      "px-lg-2",
       "fade-in"
     );
     const newCard = document.createElement("div");
@@ -224,11 +284,12 @@ const generatePopularAlbums = async () => {
       "col-sm-12",
       "col-md-6",
       "col-lg-4",
-      "col-xl-2",
+      "col-xl-3",
+      "col-xxl-2",
       "mb-2",
       "pr-3",
       "pr-md-2",
-      "pr-lg-3"
+      "px-lg-2"
     );
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
@@ -244,9 +305,74 @@ const generatePopularAlbums = async () => {
 
 /******************************************************************/
 
-window.onload = generatePopularAlbums;
+/* GENERATE TRENDING NOW ALBUMS FUNCTION */
 
-const find = async () => {
-  const data = await deezer(`search?q=edsheeran`);
-  console.log(data);
+const generateTrendingNowAlbums = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`album/${trendingNowAlbums[i]}`);
+    const popularAlbumsRow = document.querySelector("#trending-now-row");
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.artist.name}</p>`;
+
+    newCol.appendChild(newCard);
+    popularAlbumsRow.appendChild(newCol);
+  }
+
+  /* Fill expand 6 */
+  for (let i = 6; i < 12; i++) {
+    const data = await deezer(`album/${trendingNowAlbums[i]}`);
+    const popularAlbumsExpandRow = document.querySelector(
+      "#trending-expand-section"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.artist.name}</p>`;
+
+    newCol.appendChild(newCard);
+    popularAlbumsExpandRow.appendChild(newCol);
+  }
 };
+
+/******************************************************************/
+
+function generateContent() {
+  generatePopularAlbums();
+  generateTrendingNowAlbums();
+}
+
+window.onload = generateContent();
