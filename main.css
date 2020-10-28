@@ -305,6 +305,8 @@ aside {
 #search h6,
 #your-library h6 {
   color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #main-container h2,
@@ -369,6 +371,9 @@ aside {
   transition: transform 0.25s ease, background-color 0.25s ease;
   cursor: pointer;
   height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (min-width: 1500px) {
@@ -625,7 +630,7 @@ aside#your-library {
     opacity: 1;
   }
 }
-@keyframes swing-in-top-fwd {
+@keyframes swing-in-top-fwd-dly {
   0% {
     -webkit-transform: rotateX(-100deg);
     transform: rotateX(-100deg);

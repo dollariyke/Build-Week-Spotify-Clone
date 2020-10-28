@@ -31,7 +31,20 @@ const trendingNowAlbums = [
   "179682412",
 ];
 
-const popularPlaylists = ["", "", "", "", "", "", "", "", "", "", "", ""];
+const popularPlaylists = [
+  "7237234924",
+  "1060971691",
+  "2350568586",
+  "7588869202",
+  "4383182182",
+  "5673128942",
+  "7188387004",
+  "1406578475",
+  "1307150595",
+  "915487765",
+  "1154685481",
+  "3411272262",
+];
 
 let randomColour;
 let loadBrowseSection = false;
@@ -202,7 +215,7 @@ const search = async () => {
     newCardContent.classList.add("album-card");
 
     newCardContent.innerHTML =
-      `<img src="${artistData.picture_xl}" class="img-fluid rounded-circle"/>` +
+      `<img src="${artistData.cover_medium}" class="img-fluid rounded-circle"/>` +
       `<h5 class="mb-0">${artistData.name}</h5>` +
       `<p>Artist</p>`;
 
@@ -227,7 +240,7 @@ const search = async () => {
       newCardContent.classList.add("album-card");
 
       newCardContent.innerHTML =
-        `<img src="${data.data[i].album.cover_xl}" class="img-fluid"/>` +
+        `<img src="${data.data[i].album.cover_medium}" class="img-fluid"/>` +
         `<h5 class="mb-0">${data.data[i].title}</h5>` +
         `<p>${data.data[i].artist.name}</p>`;
 
@@ -264,7 +277,7 @@ const generatePopularAlbums = async () => {
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
     newCard.innerHTML =
-      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
       `<h5>${data.title}</h5>` +
       `<p>${data.artist.name}</p>`;
 
@@ -294,7 +307,7 @@ const generatePopularAlbums = async () => {
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
     newCard.innerHTML =
-      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
       `<h5>${data.title}</h5>` +
       `<p>${data.artist.name}</p>`;
 
@@ -329,7 +342,7 @@ const generateTrendingNowAlbums = async () => {
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
     newCard.innerHTML =
-      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
       `<h5>${data.title}</h5>` +
       `<p>${data.artist.name}</p>`;
 
@@ -359,7 +372,7 @@ const generateTrendingNowAlbums = async () => {
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
     newCard.innerHTML =
-      `<img src="${data.cover_xl}" class="img-fluid"/>` +
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
       `<h5>${data.title}</h5>` +
       `<p>${data.artist.name}</p>`;
 
@@ -370,9 +383,77 @@ const generateTrendingNowAlbums = async () => {
 
 /******************************************************************/
 
+/* GENERATE POPULAR PLAYLISTS ALBUMS FUNCTION */
+
+const generatePopularPlaylists = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`playlist/${popularPlaylists[i]}`);
+    const popularPlaylistsRow = document.querySelector(
+      "#popular-playlists-row"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.picture_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.nb_tracks} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    popularPlaylistsRow.appendChild(newCol);
+  }
+
+  /* Fill expand 6 */
+  for (let i = 6; i < 12; i++) {
+    const data = await deezer(`playlist/${popularPlaylists[i]}`);
+    const popularPlaylistsExpandRow = document.querySelector(
+      "#popular-playlists-expand-section"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.picture_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.nb_tracks} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    popularPlaylistsExpandRow.appendChild(newCol);
+  }
+};
+
+/******************************************************************/
+
 function generateContent() {
   generatePopularAlbums();
   generateTrendingNowAlbums();
+  generatePopularPlaylists();
 }
 
 window.onload = generateContent();
