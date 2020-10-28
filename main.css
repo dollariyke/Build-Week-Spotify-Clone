@@ -375,6 +375,7 @@ p {
   #main-container .col-xxl-2 {
     flex: 0 0 16.666667%;
     max-width: 306px;
+    min-width: 306px;
   }
 }
 

@@ -298,17 +298,20 @@ function showSection() {
     case "Home":
       sections[1].classList.add("d-none");
       sections[2].classList.add("d-none");
+      sections[3].classList.add("d-none");
       sections[0].classList.remove("d-none");
       break;
     case "Search":
       sections[0].classList.add("d-none");
       sections[2].classList.add("d-none");
+      sections[3].classList.add("d-none");
       sections[1].classList.remove("d-none");
       generateGenres();
       break;
     case "Your Library":
       sections[0].classList.add("d-none");
       sections[1].classList.add("d-none");
+      sections[3].classList.add("d-none");
       sections[2].classList.remove("d-none");
       break;
     default:
