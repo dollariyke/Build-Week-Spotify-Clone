@@ -236,6 +236,7 @@ function switchBGColour() {
       aside.classList.add("newreleases-bg");
       if (loadNewReleasesSection === false) {
         generateBestNewReleases();
+        generateNewAlbumsAndSingles();
         loadNewReleasesSection = true;
       }
       break;
@@ -948,6 +949,73 @@ const generateBestNewReleases = async () => {
 
     newCol.appendChild(newCard);
     bestNewReleasesRow.appendChild(newCol);
+  }
+};
+
+/*********************************************************************/
+
+/* GENERATE NEW ALBUMS AND SINGLES FUNCTION */
+
+const generateNewAlbumsAndSingles = async () => {
+  /* Fill first 6 */
+  for (let i = 0; i < 6; i++) {
+    const data = await deezer(`album/${newAlbumsAndSingles[i]}`);
+    const newAlbumsSinglesRow = document.querySelector(
+      "#new-albums-singles-row"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2",
+      "fade-in"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.nb_tracks} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    newAlbumsSinglesRow.appendChild(newCol);
+  }
+
+  /* Fill expand 6 */
+  for (let i = 6; i < 12; i++) {
+    const data = await deezer(`album/${newAlbumsAndSingles[i]}`);
+    const newAlbumsSinglesExpandRow = document.querySelector(
+      "#new-albums-singles-expand-section"
+    );
+
+    const newCol = document.createElement("div");
+    newCol.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-3",
+      "col-xxl-2",
+      "mb-2",
+      "pr-3",
+      "pr-md-2",
+      "px-lg-2"
+    );
+    const newCard = document.createElement("div");
+    newCard.classList.add("album-card");
+    newCard.innerHTML =
+      `<img src="${data.cover_medium}" class="img-fluid"/>` +
+      `<h5>${data.title}</h5>` +
+      `<p>${data.nb_tracks} Tracks</p>`;
+
+    newCol.appendChild(newCard);
+    newAlbumsSinglesExpandRow.appendChild(newCol);
   }
 };
 
