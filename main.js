@@ -270,14 +270,10 @@ function getRandomColour() {
 /* SHOW TRACKLIST PAGE FUNCTION */
 
 const showTracklistPage = async () => {
-  // Show tracklist section and hide all other sections
-  const tracklistPageSection = document.querySelector("#tracklist-page");
-  const allSections = document.querySelectorAll("aside");
-  allSections.forEach((e) => {
-    e.classList.add("d-none");
-  });
-  tracklistPageSection.classList.remove("d-none");
-  tracklistPageSection.classList.add("d-flex");
+  // Reset like button
+  const likeButton = document.querySelector("#tracklist-page .btn-heart");
+  likeButton.innerHTML = `<i class="far fa-heart"></i>`;
+  likeButton.classList.remove("heart-fill");
 
   // Search for necessary data
   const data = await deezer(`album/${selectedAlbumID}`);
@@ -298,8 +294,19 @@ const showTracklistPage = async () => {
   } SONGS`;
   albumID.innerHTML = data.id;
 
+  // Show tracklist section and hide all other sections
+  const tracklistPageSection = document.querySelector("#tracklist-page");
+  const allSections = document.querySelectorAll("aside");
+  allSections.forEach((e) => {
+    e.classList.add("d-none");
+  });
+  tracklistPageSection.classList.remove("d-none");
+  tracklistPageSection.classList.add("d-flex");
+
   // Populate right side track data
   const trackRow = document.querySelector("#track-row");
+
+  trackRow.innerHTML = "";
 
   for (let i = 0; trackData.data.length; i++) {
     const newTrack = document.createElement("div");
@@ -1346,8 +1353,6 @@ function likeSongToggle() {
 
     // Remove album from library
     for (let i = 0; i < yourLibraryAlbums.length; i++) {
-      console.log("current id is: " + currentAlbumID);
-      console.log("array id is: " + yourLibraryAlbums[i].id);
       if (yourLibraryAlbums[i].id === currentAlbumID) {
         yourLibraryAlbums.splice(i);
       }
