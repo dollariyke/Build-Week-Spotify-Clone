@@ -183,6 +183,8 @@ let loadMoodsAndGenresSection = false;
 let loadNewReleasesSection = false;
 let loadDiscoverSection = false;
 let selectedAlbumID = 0;
+let yourLibraryAlbums = [];
+let likedAlbumIDs = [];
 
 /******************************************************************/
 
@@ -280,14 +282,13 @@ const showTracklistPage = async () => {
   // Search for necessary data
   const data = await deezer(`album/${selectedAlbumID}`);
   const trackData = await deezer(`album/${selectedAlbumID}/tracks`);
-  console.log(data);
-  console.log(trackData);
 
   // Populate left side album data
   const albumCover = document.querySelector("#tracklist-page #album-cover");
   const albumName = document.querySelector("#tracklist-page #album-name");
   const artistName = document.querySelector("#tracklist-page #artist-name");
   const numOfSongs = document.querySelector("#tracklist-page #num-of-songs");
+  const albumID = document.querySelector("#tracklist-page .albumid");
 
   albumCover.style.backgroundImage = `url(${data.cover_medium})`;
   albumName.innerText = data.title;
@@ -295,6 +296,7 @@ const showTracklistPage = async () => {
   numOfSongs.innerText = `${data.release_date.slice(0, 4)}  -  ${
     data.nb_tracks
   } SONGS`;
+  albumID.innerHTML = data.id;
 
   // Populate right side track data
   const trackRow = document.querySelector("#track-row");
@@ -362,6 +364,46 @@ const generateGenres = async () => {
 
 /******************************************************************/
 
+/* LOAD LIBRARY FUNCTION */
+
+function loadLibrary() {
+  const artistLibrary = document.querySelector("#library-albums-row");
+
+  artistLibrary.innerHTML = "";
+
+  for (let i = 0; i < yourLibraryAlbums.length; i++) {
+    const newAlbum = document.createElement("div");
+    newAlbum.classList.add(
+      "col-sm-12",
+      "col-md-6",
+      "col-lg-4",
+      "col-xl-2",
+      "mb-2",
+      "px-0",
+      "pr-md-2",
+      "d-flex",
+      "flex-column",
+      "align-items-center",
+      "library-album"
+    );
+
+    newAlbum.innerHTML =
+      `${yourLibraryAlbums[i].cover}` +
+      `<h5 class="mb-0">${yourLibraryAlbums[i].albumName}</h5>` +
+      `<p>${yourLibraryAlbums[i].artistName}</p>` +
+      `<p class="albumid">${yourLibraryAlbums[i].id}</p>`;
+
+    artistLibrary.appendChild(newAlbum);
+
+    newAlbum.addEventListener("click", function () {
+      selectedAlbumID = event.currentTarget.querySelector(".albumid").innerHTML;
+      showTracklistPage();
+    });
+  }
+}
+
+/******************************************************************/
+
 /* SHOW SECTION FUNCTION */
 
 function showSection() {
@@ -393,6 +435,7 @@ function showSection() {
       sections[4].classList.add("d-none");
       sections[4].classList.remove("d-flex");
       sections[2].classList.remove("d-none");
+      loadLibrary();
       break;
     default:
   }
@@ -1292,13 +1335,41 @@ const find = async (searchQuery) => {
 };
 
 function likeSongToggle() {
+  // Fill heart and change colour
   const likeButton = document.querySelector(".btn-heart");
+  const currentAlbumID = document.querySelector("#tracklist-page .albumid")
+    .innerHTML;
 
   if (likeButton.classList.contains("heart-fill")) {
     likeButton.innerHTML = `<i class="far fa-heart"></i>`;
     likeButton.classList.remove("heart-fill");
+
+    // Remove album from library
+    for (let i = 0; i < yourLibraryAlbums.length; i++) {
+      console.log("current id is: " + currentAlbumID);
+      console.log("array id is: " + yourLibraryAlbums[i].id);
+      if (yourLibraryAlbums[i].id === currentAlbumID) {
+        yourLibraryAlbums.splice(i);
+      }
+    }
+
+    console.log(yourLibraryAlbums);
   } else {
     likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
     likeButton.classList.add("heart-fill");
+
+    // Add album to your library
+    const albumContainer = document.querySelector(".left-wrapper");
+    const albumObject = {
+      albumName: albumContainer.querySelector("#tracklist-page #album-name")
+        .innerText,
+      artistName: albumContainer.querySelector("#tracklist-page #artist-name")
+        .innerText,
+      cover: albumContainer.querySelector("#tracklist-page #album-cover")
+        .outerHTML,
+      id: albumContainer.querySelector("#tracklist-page .albumid").innerHTML,
+    };
+
+    yourLibraryAlbums.push(albumObject);
   }
 }

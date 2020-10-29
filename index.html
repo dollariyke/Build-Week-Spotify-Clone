@@ -459,19 +459,19 @@
         <div class="your-library-nav">
           <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+              <a class="nav-link active" id="playlists-tab" data-toggle="tab" href="#playlists" role="tab" aria-controls="playlists"
                 aria-selected="true">Playlists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+              <a class="nav-link" id="podcasts-tab" data-toggle="tab" href="#podcasts" role="tab" aria-controls="podcasts"
                 aria-selected="false">Podcasts</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+              <a class="nav-link" id="artists-tab" data-toggle="tab" href="#artists" role="tab" aria-controls="artists"
                 aria-selected="false">Artists</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+              <a class="nav-link" id="albums-tab" data-toggle="tab" href="#albums" role="tab" aria-controls="albums"
                 aria-selected="false">Albums</a>
             </li>
           </ul>
@@ -480,14 +480,19 @@
       <div class="main-wrapper swing-in-top-fwd">
         <!-- INSERT BROWSE CARDS HERE -->
         <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            ...
+          <div class="tab-pane fade show active" id="playlists" role="tabpanel" aria-labelledby="home-tab">
+            a
           </div>
-          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-            ...
+          <div class="tab-pane fade" id="podcasts" role="podcasts" aria-labelledby="podcasts-tab">
+            b
           </div>
-          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-            ...
+          <div class="tab-pane fade" id="artists" role="tabpanel" aria-labelledby="artists-tab">
+            c
+          </div>
+          <div class="library-albums tab-pane fade" id="albums" role="tabpanel" aria-labelledby="albums-tab">
+            <div id="library-albums-row" class="row">
+              <!-- Generate cards here -->
+            </div>
           </div>
         </div>
       </div>
@@ -539,6 +544,7 @@
             <button class="btn btn-heart" onclick="likeSongToggle()"><i class="far fa-heart"></i></button>
             <button class="btn btn-more">...</button>
           </div>
+          <p class="albumid"></p>
 
          </div>
         <div class="right-wrapper col-6  d-flex flex-column justify-content-center align-items-start">
