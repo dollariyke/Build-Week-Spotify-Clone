@@ -270,10 +270,24 @@ function getRandomColour() {
 /* SHOW TRACKLIST PAGE FUNCTION */
 
 const showTracklistPage = async () => {
-  // Reset like button
-  const likeButton = document.querySelector("#tracklist-page .btn-heart");
-  likeButton.innerHTML = `<i class="far fa-heart"></i>`;
-  likeButton.classList.remove("heart-fill");
+  const albumID = document.querySelector("#tracklist-page .albumid");
+
+  // Reset like button if not in library
+  let isLiked = false;
+
+  if (isLiked === false) {
+    for (let album of yourLibraryAlbums) {
+      if (album.id === selectedAlbumID) {
+        isLiked = true;
+      }
+    }
+  }
+
+  if (isLiked === false) {
+    const likeButton = document.querySelector("#tracklist-page .btn-heart");
+    likeButton.innerHTML = `<i class="far fa-heart"></i>`;
+    likeButton.classList.remove("heart-fill");
+  }
 
   // Search for necessary data
   const data = await deezer(`album/${selectedAlbumID}`);
@@ -284,7 +298,6 @@ const showTracklistPage = async () => {
   const albumName = document.querySelector("#tracklist-page #album-name");
   const artistName = document.querySelector("#tracklist-page #artist-name");
   const numOfSongs = document.querySelector("#tracklist-page #num-of-songs");
-  const albumID = document.querySelector("#tracklist-page .albumid");
 
   albumCover.style.backgroundImage = `url(${data.cover_medium})`;
   albumName.innerText = data.title;
@@ -454,6 +467,8 @@ function showSection() {
 /* SHOW ARTIST PAGE FUNCTION */
 
 const showArtistPage = async (artist) => {
+  const data = await deezer(`search?q=${artist}`);
+
   const artistPage = document.querySelector("#artist-page");
   const mainPage = document.querySelector("#main");
   const searchPage = document.querySelector("#search");
@@ -466,11 +481,9 @@ const showArtistPage = async (artist) => {
   artistPage.classList.remove("d-none");
 
   const artistHeader = document.querySelector("h1");
+  artistHeader.innerText = `${data.data[0].artist.name}`;
 
   let albumArray = [];
-
-  const data = await deezer(`search?q=${artist}`);
-  artistHeader.innerText = `${data.data[0].artist.name}`;
 
   for (let i = 0; i < data.data.length - 1; i++) {
     albumArray.push(data.data[i].album.id);
@@ -1357,8 +1370,6 @@ function likeSongToggle() {
         yourLibraryAlbums.splice(i);
       }
     }
-
-    console.log(yourLibraryAlbums);
   } else {
     likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
     likeButton.classList.add("heart-fill");
