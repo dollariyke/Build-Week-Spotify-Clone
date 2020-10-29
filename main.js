@@ -182,6 +182,7 @@ let loadPodcastSecion = false;
 let loadMoodsAndGenresSection = false;
 let loadNewReleasesSection = false;
 let loadDiscoverSection = false;
+let selectedAlbumID = 0;
 
 /******************************************************************/
 
@@ -267,14 +268,72 @@ function getRandomColour() {
 /* SHOW TRACKLIST PAGE FUNCTION */
 
 const showTracklistPage = async () => {
+  // Show tracklist section and hide all other sections
   const tracklistPageSection = document.querySelector("#tracklist-page");
   const allSections = document.querySelectorAll("aside");
-
   allSections.forEach((e) => {
     e.classList.add("d-none");
   });
-
   tracklistPageSection.classList.remove("d-none");
+  tracklistPageSection.classList.add("d-flex");
+
+  // Search for necessary data
+  const data = await deezer(`album/${selectedAlbumID}`);
+  const trackData = await deezer(`album/${selectedAlbumID}/tracks`);
+  console.log(data);
+  console.log(trackData);
+
+  // Populate left side album data
+  const albumCover = document.querySelector("#tracklist-page #album-cover");
+  const albumName = document.querySelector("#tracklist-page #album-name");
+  const artistName = document.querySelector("#tracklist-page #artist-name");
+  const numOfSongs = document.querySelector("#tracklist-page #num-of-songs");
+
+  albumCover.style.backgroundImage = `url(${data.cover_medium})`;
+  albumName.innerText = data.title;
+  artistName.innerText = data.artist.name;
+  numOfSongs.innerText = `${data.release_date.slice(0, 4)}  -  ${
+    data.nb_tracks
+  } SONGS`;
+
+  // Populate right side track data
+  const trackRow = document.querySelector("#track-row");
+
+  for (let i = 0; trackData.data.length; i++) {
+    const newTrack = document.createElement("div");
+
+    // Get song duration and convert to minutes/seconds
+    let songDurationMinutes = Math.floor(trackData.data[i].duration / 60);
+    if (songDurationMinutes < 10) {
+      songDurationMinutes = "0" + songDurationMinutes;
+    }
+
+    let songDurationSeconds =
+      trackData.data[i].duration - songDurationMinutes * 60;
+    if (songDurationSeconds < 10) {
+      songDurationSeconds = "0" + songDurationSeconds;
+    }
+
+    const songDurationFull =
+      "00:" + songDurationMinutes + ":" + songDurationSeconds;
+
+    // Apply structure and styling to new track
+    newTrack.classList.add(
+      "track-wrap",
+      "d-flex",
+      "justify-content-between",
+      "align-items-start"
+    );
+    newTrack.innerHTML = `              
+    <i class="fas fa-music"></i>
+    <div class="track-info">
+      <h6 class="mb-1">${trackData.data[i].title}</h6>
+      <p>${trackData.data[i].artist.name}</p>
+    </div>
+    <p>${songDurationFull}</p>`;
+
+    trackRow.appendChild(newTrack);
+  }
 };
 
 /*********************************************************************/
@@ -392,10 +451,16 @@ const showArtistPage = async (artist) => {
     newCardContent.innerHTML =
       `<img src="${albumData.cover_medium}" class="img-fluid"/>` +
       `<h5 class="mb-0">${albumData.title}</h5>` +
-      `<p>${albumData.artist.name}</p>`;
+      `<p>${albumData.artist.name}</p>` +
+      `<p class="albumid">${albumArray[i]}</p>`;
 
     newCard.appendChild(newCardContent);
     artistAlbumRow.appendChild(newCard);
+
+    newCard.addEventListener("click", function () {
+      selectedAlbumID = event.currentTarget.querySelector(".albumid").innerHTML;
+      showTracklistPage();
+    });
   }
 };
 

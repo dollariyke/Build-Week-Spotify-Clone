@@ -558,7 +558,7 @@ aside#artist-page {
   align-items: center;
   padding: 0;
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: right top 20%;
   background-size: cover;
   object-fit: cover;
 }
@@ -684,6 +684,12 @@ aside#artist-page {
   text-align: center;
 }
 
+#artist-page .albumid {
+  position: absolute;
+  z-index: -1;
+  visibility: hidden;
+}
+
 /*****************************************************/
 
 /*********** ARTIST PAGE STYLING***********/
@@ -700,6 +706,16 @@ aside#tracklist-page img {
 #tracklist-page .left-wrapper,
 #tracklist-page .right-wrapper {
   height: 100%;
+}
+
+#tracklist-page .right-wrapper {
+  max-width: 600px;
+}
+
+#tracklist-page .left-wrapper {
+  position: sticky;
+  top: 0;
+  padding-top: 4rem;
 }
 
 #tracklist-page h1 {
@@ -742,16 +758,21 @@ aside#tracklist-page img {
   width: 40px;
   font-size: 1.5rem;
   padding: 0;
+  color: rgba(255, 255, 255, 0.6);
   transform: scale(1);
   transition: color 0.25s ease, transform 0.25s ease;
 }
 
 #tracklist-page .btn-heart:hover {
-  color: #fa2743;
+  color: rgba(255, 255, 255, 0.9);
   transform: scale(1.05);
 }
 
 #tracklist-page .heart-fill {
+  color: #fa2743;
+}
+
+#tracklist-page .heart-fill:hover {
   color: #fa2743;
 }
 
@@ -761,11 +782,43 @@ aside#tracklist-page img {
   margin-top: -15px;
   font-size: 1.5rem;
   padding: 0;
+  color: rgba(255, 255, 255, 0.6);
   transition: color 0.25s ease;
 }
 
 #tracklist-page .btn-more:hover {
-  color: #22ad53;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#tracklist-page .track-wrap {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  transition: background-color 0.25s ease;
+  border-radius: 12px;
+}
+
+#tracklist-page .track-wrap:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+#tracklist-page .fa-music {
+  position: absolute;
+  top: 12px;
+  left: -34px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#tracklist-page #album-cover {
+  width: 350px;
+  height: 350px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5), 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+#tracklist-page #num-of-songs {
+  font-size: 0.7rem;
 }
 
 /*****************************************************/
