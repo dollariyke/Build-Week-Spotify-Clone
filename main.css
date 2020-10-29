@@ -686,6 +686,90 @@ aside#artist-page {
 
 /*****************************************************/
 
+/*********** ARTIST PAGE STYLING***********/
+
+aside#tracklist-page {
+  background-color: #0f0f0f;
+  background-image: linear-gradient(180deg, #1b1b1b 0%, #0f0f0f 100%);
+  color: white;
+}
+
+aside#tracklist-page img {
+}
+
+#tracklist-page .left-wrapper,
+#tracklist-page .right-wrapper {
+  height: 100%;
+}
+
+#tracklist-page h1 {
+  font-size: 5rem;
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+  letter-spacing: -2px;
+}
+
+#tracklist-page h2 {
+  font-size: 3rem;
+  letter-spacing: -2px;
+}
+
+#tracklist-page button {
+  position: relative;
+  z-index: 5;
+  color: #fff;
+  padding: 14px 20px;
+  width: 200px;
+  margin: 0px 10px;
+}
+
+#tracklist-page button:focus {
+  box-shadow: none;
+}
+
+#tracklist-page .btn-play {
+  background-color: #1db954;
+  border-radius: 50px;
+  border: none;
+  transition: background-color 0.25s ease;
+}
+
+#tracklist-page .btn-play:hover {
+  background-color: #24a852;
+}
+
+#tracklist-page .btn-heart {
+  border: none;
+  width: 40px;
+  font-size: 1.5rem;
+  padding: 0;
+  transform: scale(1);
+  transition: color 0.25s ease, transform 0.25s ease;
+}
+
+#tracklist-page .btn-heart:hover {
+  color: #fa2743;
+  transform: scale(1.05);
+}
+
+#tracklist-page .heart-fill {
+  color: #fa2743;
+}
+
+#tracklist-page .btn-more {
+  border: none;
+  width: 40px;
+  margin-top: -15px;
+  font-size: 1.5rem;
+  padding: 0;
+  transition: color 0.25s ease;
+}
+
+#tracklist-page .btn-more:hover {
+  color: #22ad53;
+}
+
+/*****************************************************/
+
 /*********** ANIMATIONS ***********/
 
 .flip-in-hor-bottom {

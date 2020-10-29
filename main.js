@@ -264,6 +264,21 @@ function getRandomColour() {
 
 /******************************************************************/
 
+/* SHOW TRACKLIST PAGE FUNCTION */
+
+const showTracklistPage = async () => {
+  const tracklistPageSection = document.querySelector("#tracklist-page");
+  const allSections = document.querySelectorAll("aside");
+
+  allSections.forEach((e) => {
+    e.classList.add("d-none");
+  });
+
+  tracklistPageSection.classList.remove("d-none");
+};
+
+/*********************************************************************/
+
 /* GENERATE GENRES FUNCTION */
 
 const generateGenres = async () => {
@@ -299,12 +314,16 @@ function showSection() {
       sections[1].classList.add("d-none");
       sections[2].classList.add("d-none");
       sections[3].classList.add("d-none");
+      sections[4].classList.add("d-none");
+      sections[4].classList.remove("d-flex");
       sections[0].classList.remove("d-none");
       break;
     case "Search":
       sections[0].classList.add("d-none");
       sections[2].classList.add("d-none");
       sections[3].classList.add("d-none");
+      sections[4].classList.add("d-none");
+      sections[4].classList.remove("d-flex");
       sections[1].classList.remove("d-none");
       generateGenres();
       break;
@@ -312,6 +331,8 @@ function showSection() {
       sections[0].classList.add("d-none");
       sections[1].classList.add("d-none");
       sections[3].classList.add("d-none");
+      sections[4].classList.add("d-none");
+      sections[4].classList.remove("d-flex");
       sections[2].classList.remove("d-none");
       break;
     default:
@@ -1204,3 +1225,15 @@ const find = async (searchQuery) => {
   const data = await deezer(`search?q=${searchQuery}`);
   console.log(data);
 };
+
+function likeSongToggle() {
+  const likeButton = document.querySelector(".btn-heart");
+
+  if (likeButton.classList.contains("heart-fill")) {
+    likeButton.innerHTML = `<i class="far fa-heart"></i>`;
+    likeButton.classList.remove("heart-fill");
+  } else {
+    likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
+    likeButton.classList.add("heart-fill");
+  }
+}
