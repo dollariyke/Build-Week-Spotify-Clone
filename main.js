@@ -273,21 +273,50 @@ const showTracklistPage = async () => {
   const albumID = document.querySelector("#tracklist-page .albumid");
 
   // Reset like button if not in library
-  let isLiked = false;
+  const likeButton = document.querySelector("#tracklist-page .btn-heart");
 
-  if (isLiked === false) {
-    for (let album of yourLibraryAlbums) {
-      if (album.id === selectedAlbumID) {
-        isLiked = true;
-      }
+  let matchedID = 0;
+
+  for (let i = 0; i < yourLibraryAlbums.length; i++) {
+    console.log(
+      "testing: " + selectedAlbumID + " against " + yourLibraryAlbums[i].id
+    );
+    if (yourLibraryAlbums[i].id === selectedAlbumID) {
+      matchedID++;
     }
   }
 
-  if (isLiked === false) {
-    const likeButton = document.querySelector("#tracklist-page .btn-heart");
+  if (matchedID > 0) {
+    console.log("match has been found");
+    likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
+    likeButton.classList.add("heart-fill");
+  } else if (matchedID === 0) {
     likeButton.innerHTML = `<i class="far fa-heart"></i>`;
     likeButton.classList.remove("heart-fill");
   }
+
+  /*   if (isAlbumLiked === true) {
+    likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
+    likeButton.classList.add("heart-fill");
+    console.log("heart has been liked");
+  } else {
+    likeButton.innerHTML = `<i class="far fa-heart"></i>`;
+    likeButton.classList.remove("heart-fill");
+  }
+ */
+  /*   if (isLiked === false) {
+    for (let album of yourLibraryAlbums) {
+      if (album.id === selectedAlbumID) {
+        console.log("album.id is: " + album.id);
+        isLiked = true;
+      } else {
+        isLiked = false;
+        const likeButton = document.querySelector("#tracklist-page .btn-heart");
+        likeButton.innerHTML = `<i class="far fa-heart"></i>`;
+        likeButton.classList.remove("heart-fill");
+      }
+    }
+  } */
 
   // Search for necessary data
   const data = await deezer(`album/${selectedAlbumID}`);
@@ -1366,8 +1395,8 @@ function likeSongToggle() {
 
     // Remove album from library
     for (let i = 0; i < yourLibraryAlbums.length; i++) {
-      if (yourLibraryAlbums[i].id === currentAlbumID) {
-        yourLibraryAlbums.splice(i);
+      if (selectedAlbumID === yourLibraryAlbums[i].id) {
+        yourLibraryAlbums.splice(i, 1);
       }
     }
   } else {
@@ -1384,6 +1413,7 @@ function likeSongToggle() {
       cover: albumContainer.querySelector("#tracklist-page #album-cover")
         .outerHTML,
       id: albumContainer.querySelector("#tracklist-page .albumid").innerHTML,
+      isLiked: true,
     };
 
     yourLibraryAlbums.push(albumObject);
