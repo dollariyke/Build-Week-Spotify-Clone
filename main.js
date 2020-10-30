@@ -1560,12 +1560,12 @@ function likeSongToggle() {
     addedToLibraryMessage.style.opacity = "1";
 
     setTimeout(function () {
-      addedToLibraryMessage.classList.add("scale-out-center");
+      addedToLibraryMessage.classList.add("flip-out-hor-top");
     }, 1500);
 
     setTimeout(function () {
       addedToLibraryMessage.classList.add("d-none");
-      addedToLibraryMessage.classList.remove("scale-out-center");
+      addedToLibraryMessage.classList.remove("flip-out-hor-top");
     }, 2500);
 
     // Add album to your library
