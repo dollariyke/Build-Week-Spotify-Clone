@@ -432,7 +432,8 @@ const showTracklistPage = async () => {
     player_coverArt.style.backgroundImage = `url("${data.cover_small}")`;
     player_trackName.innerText = trackData.data[0].title;
     player_artistName.innerHTML = `${data.artist.name}`;
-    /* player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`; */
+    const allTracks = document.querySelectorAll(".track-wrap");
+    allTracks[0].classList.add("active-track");
     playMusic();
   });
 
