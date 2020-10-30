@@ -39,6 +39,8 @@ const login = (event) => {
   event.preventDefault();
 
   for (let i = 0; i < users.length; i++) {
+    console.log("checking " + username + " against " + users[i].email);
+    console.log("checking " + password + " against " + users[i].password);
     if (username === users[i].email && password === users[i].password) {
       window.location.assign("index.html");
       return;

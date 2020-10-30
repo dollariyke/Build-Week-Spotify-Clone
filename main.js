@@ -1532,8 +1532,6 @@ function generateContent() {
   generatePopularPlaylists();
 }
 
-window.onload = generateContent();
-
 /* LIKE SONG FUNCTIONALITY */
 
 function likeSongToggle() {
@@ -1591,6 +1589,8 @@ function expandMobileNav() {
 }
 
 /*********************************************************************/
+
+window.onload = generateContent();
 
 const find = async (searchQuery) => {
   const data = await deezer(`search?q=${searchQuery}`);
