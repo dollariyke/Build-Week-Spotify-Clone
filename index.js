@@ -38,8 +38,8 @@ function login() {
   const password = document.getElementById("InputPassword1").value;
   event.preventDefault();
 
-  console.log("checking " + username + " against " + users[i].email);
-  console.log("checking " + password + " against " + users[i].password);
+  console.log("checking " + username);
+  console.log("checking " + password);
 
   let userExists = 0;
 
