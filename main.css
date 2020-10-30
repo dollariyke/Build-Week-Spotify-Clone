@@ -873,9 +873,11 @@ aside#tracklist-page {
 #tracklist-page .track-wrap {
   width: 100%;
   position: relative;
-  padding: 10px;
-  transition: background-color 0.25s ease;
+  padding: 10px 20px;
+  transition: background-color 0.25s ease, padding 0.25s ease-in-out,
+    transform 0.25s ease-in-out;
   border-radius: 12px;
+  tranform: translateX(0);
 }
 
 #tracklist-page .track-wrap:hover {
@@ -1291,6 +1293,15 @@ input.track-length {
   }
 }
 
+.active-track {
+  background-color: #1db95417;
+  transform: translateX(-20px);
+}
+
+.active-track:hover {
+  background-color: #1db95417 !important;
+}
+
 /* PRELOADER */
 
 #loader-wrapper {
@@ -1379,7 +1390,7 @@ input.track-length {
   top: 0;
   width: 51%;
   height: 100%;
-  background: #0a0a0a;
+  background: #000;
   z-index: 1000;
   -webkit-transform: translateX(0); /* Chrome, Opera 15+, Safari 3.1+ */
   -ms-transform: translateX(0); /* IE 9 */

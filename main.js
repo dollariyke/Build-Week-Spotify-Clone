@@ -363,6 +363,19 @@ function changeSongPlace(time) {
 
 /*********************************************************************/
 
+function addActiveTrack() {
+  const allTracks = document.querySelectorAll(".track-wrap");
+  const clickedTrack = event.currentTarget;
+
+  allTracks.forEach((e) => {
+    if (e.classList.contains("active-track")) {
+      e.classList.remove("active-track");
+    }
+  });
+
+  clickedTrack.classList.add("active-track");
+}
+
 /* SHOW TRACKLIST PAGE FUNCTION */
 
 const showTracklistPage = async () => {
@@ -470,6 +483,7 @@ const showTracklistPage = async () => {
       player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`;
       isPlaying = false;
       playMusic();
+      addActiveTrack();
     });
 
     // Apply structure and styling to new track
