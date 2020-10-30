@@ -240,7 +240,7 @@ aside {
   position: relative;
   left: 230px;
   z-index: 0;
-  padding: 50px;
+  padding: 50px 50px 150px;
   transition: transform 0.25s ease;
 }
 
@@ -907,6 +907,24 @@ aside#tracklist-page {
   font-size: 0.7rem;
 }
 
+@media (max-width: 1100px) {
+  #tracklist-page .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  #album-name {
+    text-align: center;
+  }
+
+  #tracklist-page .left-wrapper {
+    position: relative;
+    margin-bottom: 20px;
+  }
+}
+
+/*d-flex flex-column justify-content-center align-items-center*/
+
 #your-library #album-cover {
   width: 150px;
   height: 150px;
@@ -1141,12 +1159,16 @@ aside#tracklist-page {
   min-width: 195px;
 }
 
+.track-nav {
+  box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.2);
+}
+
 .track-nav:first-of-type {
-  padding-left: 20px;
+  padding-left: 30px;
 }
 
 .track-nav:last-of-type {
-  padding-right: 20px;
+  padding-right: 30px;
 }
 
 .controls {
@@ -1293,6 +1315,10 @@ input.track-length {
   }
 }
 
+#player-album-info {
+  width: 300px;
+}
+
 .active-track {
   background-color: #1db95417;
   transform: translateX(-20px);
@@ -1300,6 +1326,10 @@ input.track-length {
 
 .active-track:hover {
   background-color: #1db95417 !important;
+}
+
+#player {
+  border-top: 2px solid #000;
 }
 
 /* PRELOADER */

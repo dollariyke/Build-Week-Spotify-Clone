@@ -478,7 +478,10 @@ const showTracklistPage = async () => {
       song_url = trackData.data[i].preview;
       total_time = trackData.data[i].duration;
       player_coverArt.style.backgroundImage = `url("${data.cover_small}")`;
-      player_trackName.innerText = trackData.data[i].title;
+      player_trackName.innerText =
+        trackData.data[i].title.length > 25
+          ? trackData.data[i].title.substring(0, 25) + "..."
+          : trackData.data[i].title;
       player_artistName.innerHTML = `${data.artist.name}`;
       player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`;
       isPlaying = false;
@@ -593,6 +596,9 @@ function showSection() {
       sections[4].classList.add("d-none");
       sections[4].classList.remove("d-flex");
       sections[1].classList.remove("d-none");
+      const searchBar = document.querySelector(".search-bar input");
+      searchBar.value = "";
+      searchBar.focus();
       generateGenres();
       break;
     case "Your Library":
