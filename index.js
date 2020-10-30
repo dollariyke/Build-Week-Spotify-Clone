@@ -38,14 +38,19 @@ const login = (event) => {
   const password = document.getElementById("InputPassword1").value;
   event.preventDefault();
 
+  let userExists = 0;
+
   for (let i = 0; i < users.length; i++) {
     console.log("checking " + username + " against " + users[i].email);
     console.log("checking " + password + " against " + users[i].password);
     if (username === users[i].email && password === users[i].password) {
-      window.location.assign("index.html");
-      return;
+      userExists++;
     }
   }
+  if (userExists > 0) {
+    window.location.assign("index.html");
+  }
+
   document.querySelector("#error-div").classList.remove("d-none");
   changeBorderColor();
 };
