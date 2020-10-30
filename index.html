@@ -23,6 +23,15 @@
 </head>
 
 <body>
+
+  <!-- PRELOADER -->
+  <div id="loader-wrapper">
+    <div id="loader"></div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+
+
   <!-- ********** NAVIGATION SECTION ********** -->
   <button class="btn btn-burger" onclick="expandMobileNav()">☰</button>
   <section id="navigation">
@@ -78,7 +87,9 @@
       <div class="nav-footer text-left">
         <div class="container">
           <button id="sign-up" class="col-12">SIGN UP</button>
-          <button id="log-in" class="col-12">LOGIN</button>
+          <form action="login.html">
+            <button id="log-in" href="/login.html" class="col-12">LOGIN</button>
+          </form>
           <ul class="text-center">
             <li><a href="#">Cookie</a></li>
             <li><a href="#">Privacy</a></li>

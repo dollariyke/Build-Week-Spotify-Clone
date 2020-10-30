@@ -1554,3 +1554,9 @@ const find = async (searchQuery) => {
   const data = await deezer(`search?q=${searchQuery}`);
   console.log(data);
 };
+
+window.onload = function () {
+  setTimeout(function () {
+    $("body").addClass("loaded");
+  }, 3000);
+};
