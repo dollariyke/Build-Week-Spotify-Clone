@@ -184,7 +184,15 @@ let loadNewReleasesSection = false;
 let loadDiscoverSection = false;
 let selectedAlbumID = 0;
 let yourLibraryAlbums = [];
-let likedAlbumIDs = [];
+
+// PLAYER VARIABLES
+
+const range = document.querySelector("#range");
+
+let song_url =
+  "https://cdns-preview-c.dzcdn.net/stream/c-ccce4f65bbb9c058ab50dbb70fc5332d-3.mp3";
+let total_time = 0;
+let isPlaying = false;
 
 /******************************************************************/
 
@@ -267,9 +275,101 @@ function getRandomColour() {
 
 /******************************************************************/
 
+/* PLAYER FUNCTIONALITY */
+
+let song = new Audio();
+song.volume = 0.2;
+
+function playMusic() {
+  const play_btn = document.querySelector("#play_img");
+
+  song.src = song_url;
+  if (!isPlaying) {
+    song.play();
+    isPlaying = true;
+    play_btn.classList.remove("fa-play");
+    play_btn.classList.add("fa-pause");
+  } else {
+    song.pause();
+    isPlaying = false;
+    play_btn.setAttribute("class", "fa fa-play");
+  }
+  song.addEventListener("ended", function () {
+    song.pause();
+    isPlaying = false;
+    play_btn.classList.remove("fa-pause");
+    play_btn.classList.add("fa-play");
+  });
+}
+
+// VOLUME CHANGE FUNCTION
+function changeVolume(volume) {
+  const volume_icon = document.querySelector("#player #volume-icon");
+
+  song.volume = volume / 100;
+  if (song.volume === 0) {
+    volume_icon.classList.remove("fa-volume-down");
+    volume_icon.classList.remove("fa-volume-up");
+    volume_icon.classList.add("fa-volume-off");
+  } else if (song.volume > 0 && song.volume < 0.5) {
+    volume_icon.classList.remove("fa-volume-off");
+    volume_icon.classList.remove("fa-volume-up");
+    volume_icon.classList.add("fa-volume-down");
+  } else if (song.volume > 0.5) {
+    volume_icon.classList.remove("fa-volume-off");
+    volume_icon.classList.remove("fa-volume-down");
+    volume_icon.classList.add("fa-volume-up");
+  }
+}
+
+// UPDATE CURRENT DURATION TEXT FUNCTION
+function updateCurrentTimeDisplay(time) {
+  const currentTimeContainer = document.querySelector(".track-time-current");
+
+  let roundedTime = Math.round(time);
+
+  let seconds = roundedTime % 60;
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+
+  let minutes = (roundedTime - seconds) / 60;
+  if (minutes < 10) {
+    minutes = "0" + minutes;
+  }
+
+  const currentTime = minutes + ":" + seconds;
+
+  current_time = currentTime;
+  currentTimeContainer.innerHTML = currentTime;
+}
+
+// DURATION BAR CHANGE FUNCTION
+song.ontimeupdate = function (value) {
+  const songDurationBar = document.querySelector("#player-duration-bar");
+
+  updateCurrentTimeDisplay(song.currentTime);
+
+  let perc = Math.round((song.currentTime / song.duration) * 100);
+
+  songDurationBar.value = perc;
+};
+
+// CHANGE PLACE IN SONG FUNCTION
+
+function changeSongPlace(time) {
+  song.currentTime = Math.round((time / 100) * song.duration);
+}
+
+/*********************************************************************/
+
 /* SHOW TRACKLIST PAGE FUNCTION */
 
 const showTracklistPage = async () => {
+  const tracklistPageContainer = document.querySelector("#tracklist-page");
+  tracklistPageContainer.classList.remove("d-none");
+  tracklistPageContainer.classList.add("d-flex");
+
   const albumID = document.querySelector("#tracklist-page .albumid");
 
   // Reset like button if not in library
@@ -278,45 +378,18 @@ const showTracklistPage = async () => {
   let matchedID = 0;
 
   for (let i = 0; i < yourLibraryAlbums.length; i++) {
-    console.log(
-      "testing: " + selectedAlbumID + " against " + yourLibraryAlbums[i].id
-    );
     if (yourLibraryAlbums[i].id === selectedAlbumID) {
       matchedID++;
     }
   }
 
   if (matchedID > 0) {
-    console.log("match has been found");
     likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
     likeButton.classList.add("heart-fill");
   } else if (matchedID === 0) {
     likeButton.innerHTML = `<i class="far fa-heart"></i>`;
     likeButton.classList.remove("heart-fill");
   }
-
-  /*   if (isAlbumLiked === true) {
-    likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
-    likeButton.classList.add("heart-fill");
-    console.log("heart has been liked");
-  } else {
-    likeButton.innerHTML = `<i class="far fa-heart"></i>`;
-    likeButton.classList.remove("heart-fill");
-  }
- */
-  /*   if (isLiked === false) {
-    for (let album of yourLibraryAlbums) {
-      if (album.id === selectedAlbumID) {
-        console.log("album.id is: " + album.id);
-        isLiked = true;
-      } else {
-        isLiked = false;
-        const likeButton = document.querySelector("#tracklist-page .btn-heart");
-        likeButton.innerHTML = `<i class="far fa-heart"></i>`;
-        likeButton.classList.remove("heart-fill");
-      }
-    }
-  } */
 
   // Search for necessary data
   const data = await deezer(`album/${selectedAlbumID}`);
@@ -336,6 +409,20 @@ const showTracklistPage = async () => {
   } SONGS`;
   albumID.innerHTML = data.id;
 
+  // Add function to big play button
+  const tracklistPlayButton = document.querySelector(
+    "#tracklist-page .btn-play"
+  );
+  tracklistPlayButton.addEventListener("click", function loadSong() {
+    song_url = trackData.data[0].preview;
+    total_time = trackData.data[0].duration;
+    player_coverArt.style.backgroundImage = `url("${data.cover_small}")`;
+    player_trackName.innerText = trackData.data[0].title;
+    player_artistName.innerHTML = `${data.artist.name}`;
+    /* player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`; */
+    playMusic();
+  });
+
   // Show tracklist section and hide all other sections
   const tracklistPageSection = document.querySelector("#tracklist-page");
   const allSections = document.querySelectorAll("aside");
@@ -347,6 +434,11 @@ const showTracklistPage = async () => {
 
   // Populate right side track data
   const trackRow = document.querySelector("#track-row");
+
+  const player_coverArt = document.querySelector("#player .player-cover-img");
+  const player_trackName = document.querySelector("#player-song-name");
+  const player_artistName = document.querySelector("#player-artist-name");
+  const player_maxDuration = document.querySelector(".track-time-to-finish");
 
   trackRow.innerHTML = "";
 
@@ -367,6 +459,18 @@ const showTracklistPage = async () => {
 
     const songDurationFull =
       "00:" + songDurationMinutes + ":" + songDurationSeconds;
+
+    // Add update player function to each track
+    newTrack.addEventListener("click", function loadSong() {
+      song_url = trackData.data[i].preview;
+      total_time = trackData.data[i].duration;
+      player_coverArt.style.backgroundImage = `url("${data.cover_small}")`;
+      player_trackName.innerText = trackData.data[i].title;
+      player_artistName.innerHTML = `${data.artist.name}`;
+      player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`;
+      isPlaying = false;
+      playMusic();
+    });
 
     // Apply structure and styling to new track
     newTrack.classList.add(
@@ -709,6 +813,16 @@ const generatePopularAlbums = async () => {
       `<img src="${data.cover_medium}" class="img-fluid"/>` +
       `<h5>${data.title}</h5>` +
       `<p>${data.artist.name}</p>`;
+
+    /*     newCard.addEventListener("click", function loadSong() {
+      song_url = data[i].preview;
+      total_time = data[i].duration;
+      player_coverArt.style.backgroundImage = `url("${data.cover_small}")`;
+      player_trackName.innerText = data.data[i].title;
+      player_artistName.innerHTML = `${data.artist.name}`;
+      player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`;
+      playMusic();
+    }); */
 
     newCol.appendChild(newCard);
     popularAlbumsExpandRow.appendChild(newCol);
@@ -1378,10 +1492,7 @@ function generateContent() {
 
 window.onload = generateContent();
 
-const find = async (searchQuery) => {
-  const data = await deezer(`search?q=${searchQuery}`);
-  console.log(data);
-};
+/* LIKE SONG FUNCTIONALITY */
 
 function likeSongToggle() {
   // Fill heart and change colour
@@ -1422,16 +1533,24 @@ function likeSongToggle() {
 /* EXPAND MOBILE NAV FUNCTION */
 
 function expandMobileNav() {
+  const pageBody = document.querySelector("body");
   const navigationMenu = document.querySelector("#navigation");
   const burgerNavigation = document.querySelector(".btn-burger");
 
   if (navigationMenu.classList.contains("mobile-nav-active")) {
     navigationMenu.classList.remove("mobile-nav-active");
     burgerNavigation.classList.remove("burger-menu-active");
+    pageBody.classList.remove("overflow-hidden");
   } else {
     navigationMenu.classList.add("mobile-nav-active");
     burgerNavigation.classList.add("burger-menu-active");
+    pageBody.classList.add("overflow-hidden");
   }
 }
 
 /*********************************************************************/
+
+const find = async (searchQuery) => {
+  const data = await deezer(`search?q=${searchQuery}`);
+  console.log(data);
+};

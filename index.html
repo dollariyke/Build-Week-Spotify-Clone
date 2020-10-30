@@ -533,7 +533,7 @@
   </aside>
 
   <!--********** TRACKLIST PAGE SECTION **********-->
-  <aside id="tracklist-page" class="d-none d-flex justify-content-center align-items-center">
+  <aside id="tracklist-page" class="d-none justify-content-center align-items-center">
     <div id="tracklist-container" class="w-100">
       <div class="row">
         <div class="left-wrapper col-6 d-flex flex-column justify-content-start align-items-center fade-in">
@@ -558,6 +558,56 @@
       </div>
     </div>
   </aside>
+
+<!--********** PLAYER SECTION **********-->
+<section id="player">
+  <div class="track-nav center">
+    <div id="player-album-info" class="d-flex justify-content-start align-items-center">
+      <div class="player-cover-img"></div>
+      <div class="song-title-info">
+        <div id="player-song-name" class="song-title-small">Really Love (feat. Craig David & Digital Farm Animals)</div>
+        <div id="player-artist-name" class="song-artist-small artist">Ksi, Craig David, Digital Farm Animals</div>
+      </div>
+    </div>
+
+    <div class="player d-flex flex-column justify-content-center align-items-center">
+      <div class="buttons w-100 center">
+        <i class="fas fa-random"></i>
+
+        <button id="player-pre">
+          <i class="fas fa-step-backward"></i>
+        </button>
+
+        <button id="player-play" onclick="playMusic()">
+          <i id="play_img" class="fa fa-play"></i>
+        </button>
+
+        <button id="player-next">
+          <i class="fas fa-step-forward"></i>
+        </button>
+        <i class="fas fa-redo"></i>
+      </div>
+      <div class="controls d-flex align-items-center">
+        <div class="track-time-current">00:00</div>
+        <input
+          id="player-duration-bar"
+          class="level"
+          type="range"
+          min="0"
+          max="100"
+          value="0"
+          onclick="changeSongPlace(this.value)"
+        />
+        <div class="track-time-to-finish">00:30</div>
+      </div>
+    </div>
+    <div class="volume">
+      <i id="volume-icon" class="fa fa-volume-off mr-3"></i>
+      <input type="range" value="20" min="0" max="100" onchange="changeVolume(this.value)" />
+    </div>
+  </div>
+</section>
+
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
