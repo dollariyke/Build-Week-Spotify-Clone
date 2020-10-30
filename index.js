@@ -37,8 +37,10 @@ function login() {
     window.location.assign("index.html");
   }
 
-  document.querySelector("#error-div").classList.remove("d-none");
-  changeBorderColor();
+  if (userExists === 0) {
+    document.querySelector("#error-div").classList.remove("d-none");
+    changeBorderColor();
+  }
 }
 
 let mybtn = document.getElementById("submit");
