@@ -877,7 +877,6 @@ aside#tracklist-page {
   transition: background-color 0.25s ease, padding 0.25s ease-in-out,
     transform 0.25s ease-in-out;
   border-radius: 12px;
-  tranform: translateX(0);
 }
 
 #tracklist-page .track-wrap:hover {
@@ -1320,12 +1319,12 @@ input.track-length {
 }
 
 .active-track {
-  background-color: #1db95417;
+  background-color: rgba(255, 255, 255, 0.05);
   transform: translateX(-20px);
 }
 
 .active-track:hover {
-  background-color: #1db95417 !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
 }
 
 #player {
