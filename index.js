@@ -33,7 +33,7 @@ const changeBorderColor = () => {
   }
 };
 
-const login = () => {
+function login() {
   const username = document.getElementById("Email1").value;
   const password = document.getElementById("InputPassword1").value;
   event.preventDefault();
@@ -56,7 +56,7 @@ const login = () => {
 
   document.querySelector("#error-div").classList.remove("d-none");
   changeBorderColor();
-};
+}
 
 let mybtn = document.getElementById("submit");
 mybtn.addEventListener("click", login);
