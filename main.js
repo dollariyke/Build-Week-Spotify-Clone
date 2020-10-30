@@ -1560,8 +1560,13 @@ function likeSongToggle() {
     addedToLibraryMessage.style.opacity = "1";
 
     setTimeout(function () {
-      addedToLibraryMessage.classList.add("d-none");
+      addedToLibraryMessage.classList.add("scale-out-center");
     }, 1500);
+
+    setTimeout(function () {
+      addedToLibraryMessage.classList.add("d-none");
+      addedToLibraryMessage.classList.remove("scale-out-center");
+    }, 2500);
 
     // Add album to your library
     const albumContainer = document.querySelector(".left-wrapper");
