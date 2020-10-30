@@ -4,23 +4,11 @@ const users = [
     password: "winners",
   },
   {
-    email: "james@gmail.com",
-    password: "jamers",
+    email: "testuser@striveschool.com",
+    password: "password123",
   },
   {
-    email: "peter@gmail.com",
-    password: "peters",
-  },
-  {
-    email: "mark@gmail.com",
-    password: "markers",
-  },
-  {
-    email: "andrew@gmail.com",
-    password: "andrewers",
-  },
-  {
-    email: "test@test.com",
+    email: "admin@striveschool.com",
     password: "password123",
   },
 ];
@@ -41,8 +29,6 @@ function login() {
   let userExists = 0;
 
   for (let i = 0; i < users.length; i++) {
-    console.log("checking " + username + " against " + users[i].email);
-    console.log("checking " + password + " against " + users[i].password);
     if (username === users[i].email && password === users[i].password) {
       userExists++;
     }
