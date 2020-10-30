@@ -38,9 +38,6 @@ function login() {
   const password = document.getElementById("InputPassword1").value;
   event.preventDefault();
 
-  console.log("checking " + username);
-  console.log("checking " + password);
-
   let userExists = 0;
 
   for (let i = 0; i < users.length; i++) {
