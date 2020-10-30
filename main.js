@@ -514,9 +514,12 @@ const showTracklistPage = async () => {
 
 const generateGenres = async () => {
   const data = await getGenres();
+  const genresContainer = document.querySelector("#genres-wrapper");
+  const genresHeader = document.querySelector("#browse-genres-header");
+  genresContainer.classList.remove("d-none");
+  genresHeader.classList.remove("d-none");
 
   if (loadBrowseSection === false) {
-    const genresContainer = document.querySelector("#genres-wrapper");
     data.forEach((e) => {
       getRandomColour();
 
@@ -574,6 +577,15 @@ function loadLibrary() {
 
 /******************************************************************/
 
+function resetSearch() {
+  const artistRow = document.querySelector("#artist-row");
+  const tracksRow = document.querySelector("#songs-row");
+  const searchHeader = document.querySelector(".search-header");
+  artistRow.innerHTML = "";
+  tracksRow.innerHTML = "";
+  searchHeader.innerHTML = "";
+}
+
 /* SHOW SECTION FUNCTION */
 
 function showSection() {
@@ -600,6 +612,7 @@ function showSection() {
       searchBar.value = "";
       searchBar.focus();
       generateGenres();
+      resetSearch();
       break;
     case "Your Library":
       sections[0].classList.add("d-none");
@@ -687,66 +700,45 @@ const showArtistPage = async (artist) => {
 const search = async () => {
   // TRIGGER WHEN ENTER IS PRESSED
   if (event.keyCode === 13) {
-    // MAIN SELECTORS
-    const searchMainContainer = document.querySelector("#search-content");
-    const songsRow = document.querySelector("#songs-row");
-    const artistRow = document.querySelector("#artist-row");
-
-    // GET INPUT FROM SEARCH BAR AND CLEAR THE BAR
     const searchInput = document.querySelector(".search-bar input").value;
-    document.querySelector(".search-bar input").value = ""; // Empty the search bar
+    if (searchInput.length > 0) {
+      // Hide genres after search
+      const genresContainer = document.querySelector("#genres-wrapper");
+      const genresHeader = document.querySelector("#browse-genres-header");
+      genresContainer.classList.add("d-none");
+      genresHeader.classList.add("d-none");
 
-    // RESET THE CONTAINER
-    songsRow.innerHTML = `<h4 id="tracks-header" class="w-100">Tracks</h4>`; // Empty the search container (to replace a previous search with new content)
-    artistRow.innerHTML = `<h4 id="artist-header" class="w-100">Artist</h4>`; // Empty the search container (to replace a previous search with new content)
+      // MAIN SELECTORS
+      const searchMainContainer = document.querySelector("#search-content");
+      const songsRow = document.querySelector("#songs-row");
+      const artistRow = document.querySelector("#artist-row");
 
-    // UPDATE SEARCH FOR TEXT
-    const searchHeader = document.querySelector(".search-header");
-    searchHeader.innerText = `Search results for "${searchInput}"...`;
-    searchMainContainer.appendChild(artistRow);
+      // GET INPUT FROM SEARCH BAR AND CLEAR THE BAR
+      const searchInput = document.querySelector(".search-bar input").value;
+      document.querySelector(".search-bar input").value = ""; // Empty the search bar
 
-    // SHOW ARTIST AND TRACKS TITLES
-    const artistHeader = document.querySelector("#artist-header");
-    const tracksHeader = document.querySelector("#tracks-header");
-    artistHeader.style.opacity = "1";
-    tracksHeader.style.opacity = "1";
+      // RESET THE CONTAINER
+      songsRow.innerHTML = `<h4 id="tracks-header" class="w-100">Tracks</h4>`; // Empty the search container (to replace a previous search with new content)
+      artistRow.innerHTML = `<h4 id="artist-header" class="w-100">Artist</h4>`; // Empty the search container (to replace a previous search with new content)
 
-    // START API SEARCH
-    const data = await deezer(`search?q=${searchInput}`);
+      // UPDATE SEARCH FOR TEXT
+      const searchHeader = document.querySelector(".search-header");
+      searchHeader.innerText = `Search results for "${searchInput}"...`;
+      searchMainContainer.appendChild(artistRow);
 
-    // ARTIST SEARCH AND GENERATE
-    const artistID = data.data[0].artist.id;
-    const artistData = await deezer(`artist/${artistID}`);
+      // SHOW ARTIST AND TRACKS TITLES
+      const artistHeader = document.querySelector("#artist-header");
+      const tracksHeader = document.querySelector("#tracks-header");
+      artistHeader.style.opacity = "1";
+      tracksHeader.style.opacity = "1";
 
-    const newCard = document.createElement("div");
-    newCard.classList.add(
-      "col-sm-12",
-      "col-md-6",
-      "col-lg-4",
-      "col-xl-2",
-      "mb-2",
-      "px-0",
-      "pr-md-2",
-      "flip-in-hor-bottom"
-    );
+      // START API SEARCH
+      const data = await deezer(`search?q=${searchInput}`);
 
-    const newCardContent = document.createElement("div");
-    newCardContent.classList.add("album-card");
-    newCardContent.addEventListener("click", function () {
-      showArtistPage(`${searchInput}`);
-    });
+      // ARTIST SEARCH AND GENERATE
+      const artistID = data.data[0].artist.id;
+      const artistData = await deezer(`artist/${artistID}`);
 
-    newCardContent.innerHTML =
-      `<img src="${artistData.picture_medium}" class="img-fluid rounded-circle artist-shadow"/>` +
-      `<h5 class="mb-0">${artistData.name}</h5>` +
-      `<p>Artist</p>`;
-
-    newCard.appendChild(newCardContent);
-
-    artistRow.appendChild(newCard);
-
-    // TRACKS GENERATE
-    for (let i = 0; i < data.data.length - 1; i++) {
       const newCard = document.createElement("div");
       newCard.classList.add(
         "col-sm-12",
@@ -761,16 +753,46 @@ const search = async () => {
 
       const newCardContent = document.createElement("div");
       newCardContent.classList.add("album-card");
+      newCardContent.addEventListener("click", function () {
+        showArtistPage(`${searchInput}`);
+      });
 
       newCardContent.innerHTML =
-        `<img src="${data.data[i].album.cover_medium}" class="img-fluid"/>` +
-        `<h5 class="mb-0">${data.data[i].title}</h5>` +
-        `<p>${data.data[i].artist.name}</p>`;
+        `<img src="${artistData.picture_medium}" class="img-fluid rounded-circle artist-shadow"/>` +
+        `<h5 class="mb-0">${artistData.name}</h5>` +
+        `<p>Artist</p>`;
 
       newCard.appendChild(newCardContent);
-      songsRow.appendChild(newCard);
+
+      artistRow.appendChild(newCard);
+
+      // TRACKS GENERATE
+      for (let i = 0; i < data.data.length - 1; i++) {
+        const newCard = document.createElement("div");
+        newCard.classList.add(
+          "col-sm-12",
+          "col-md-6",
+          "col-lg-4",
+          "col-xl-2",
+          "mb-2",
+          "px-0",
+          "pr-md-2",
+          "flip-in-hor-bottom"
+        );
+
+        const newCardContent = document.createElement("div");
+        newCardContent.classList.add("album-card");
+
+        newCardContent.innerHTML =
+          `<img src="${data.data[i].album.cover_medium}" class="img-fluid"/>` +
+          `<h5 class="mb-0">${data.data[i].title}</h5>` +
+          `<p>${data.data[i].artist.name}</p>`;
+
+        newCard.appendChild(newCardContent);
+        songsRow.appendChild(newCard);
+      }
+      searchMainContainer.appendChild(songsRow);
     }
-    searchMainContainer.appendChild(songsRow);
   }
 };
 
