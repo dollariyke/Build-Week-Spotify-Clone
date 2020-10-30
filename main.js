@@ -1540,6 +1540,7 @@ function likeSongToggle() {
   const likeButton = document.querySelector(".btn-heart");
   const currentAlbumID = document.querySelector("#tracklist-page .albumid")
     .innerHTML;
+  const addedToLibraryMessage = document.querySelector(".added-to-album");
 
   if (likeButton.classList.contains("heart-fill")) {
     likeButton.innerHTML = `<i class="far fa-heart"></i>`;
@@ -1554,6 +1555,13 @@ function likeSongToggle() {
   } else {
     likeButton.innerHTML = `<i class="fa fa-heart"></i>`;
     likeButton.classList.add("heart-fill");
+
+    addedToLibraryMessage.classList.remove("d-none");
+    addedToLibraryMessage.style.opacity = "1";
+
+    setTimeout(function () {
+      addedToLibraryMessage.classList.add("d-none");
+    }, 1500);
 
     // Add album to your library
     const albumContainer = document.querySelector(".left-wrapper");
