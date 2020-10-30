@@ -33,7 +33,7 @@ const changeBorderColor = () => {
   }
 };
 
-const login = (event) => {
+const login = () => {
   const username = document.getElementById("Email1").value;
   const password = document.getElementById("InputPassword1").value;
   event.preventDefault();
