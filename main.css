@@ -29,16 +29,28 @@ body {
   position: fixed;
   display: block;
   left: 0;
-  z-index: 999;
+  z-index: 998;
+  transition: transform 0.25s ease;
 }
 
 #navigation svg {
   margin-right: 20px;
+  max-width: 230px;
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   #navigation {
     display: none;
+  }
+} */
+
+@media only screen and (max-width: 976px) {
+  #navigation {
+    transform: translateX(-230px);
+  }
+  aside {
+    width: 100% !important;
+    transform: translateX(-230px);
   }
 }
 
@@ -78,7 +90,11 @@ ul li {
   display: inline-block;
   font-size: 14px;
   margin: 0;
-  width: 40%;
+  padding: 0px 20px;
+}
+
+#navigation .nav-footer {
+  max-width: 300px;
 }
 
 #navigation .nav-footer ul li a {
@@ -147,6 +163,62 @@ button {
   border-right: 1px solid rgba(255, 255, 255, 0.103);
 }
 
+.btn-burger {
+  background: none;
+  color: #fff !important;
+  font-weight: bold;
+  border: none;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  font-size: 34px;
+  background-color: #000;
+  border-radius: 4px;
+  padding: 10px 20px;
+  display: none;
+  z-index: 999;
+  opacity: 0.8;
+  border-bottom: 2px solid rgb(59, 59, 59);
+  transition: all0.25s ease-in-out;
+  transform: scale(1);
+}
+
+.btn-burger:hover {
+  transform: scale(1.05);
+  color: #1db954 !important;
+  border-bottom: 2px solid #1db954;
+}
+
+.btn-burger:focus {
+  box-shadow: none;
+}
+
+.btn-burger:active {
+  transform: scale(1);
+}
+
+@media (max-width: 996px) {
+  .btn-burger {
+    display: block;
+  }
+
+  #main {
+    padding-top: 120px;
+  }
+
+  .burger-menu-active {
+    border: 1px solid #1ed760;
+    opacity: 1;
+  }
+
+  #navigation.mobile-nav-active {
+    transform: translateX(0px);
+    width: 100%;
+    min-width: 230px;
+    opacity: 0.95;
+  }
+}
+
 /*****************************************************/
 
 /*********** MAIN CONTAINER STYLING ***********/
@@ -159,13 +231,7 @@ aside {
   left: 230px;
   z-index: 0;
   padding: 50px;
-}
-
-@media (max-width: 576px) {
-  aside {
-    left: 0;
-    width: 100%;
-  }
+  transition: transform 0.25s ease;
 }
 
 .trending-bg {
@@ -288,6 +354,12 @@ aside {
 #main-container .nav-tabs .nav-item.show .nav-link,
 .nav-tabs .nav-link:hover {
   border: none;
+}
+
+@media only screen and (max-width: 768px) {
+  #main .album-card {
+    margin: 0 auto;
+  }
 }
 
 /*****************************************************/

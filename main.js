@@ -1413,9 +1413,25 @@ function likeSongToggle() {
       cover: albumContainer.querySelector("#tracklist-page #album-cover")
         .outerHTML,
       id: albumContainer.querySelector("#tracklist-page .albumid").innerHTML,
-      isLiked: true,
     };
 
     yourLibraryAlbums.push(albumObject);
   }
 }
+
+/* EXPAND MOBILE NAV FUNCTION */
+
+function expandMobileNav() {
+  const navigationMenu = document.querySelector("#navigation");
+  const burgerNavigation = document.querySelector(".btn-burger");
+
+  if (navigationMenu.classList.contains("mobile-nav-active")) {
+    navigationMenu.classList.remove("mobile-nav-active");
+    burgerNavigation.classList.remove("burger-menu-active");
+  } else {
+    navigationMenu.classList.add("mobile-nav-active");
+    burgerNavigation.classList.add("burger-menu-active");
+  }
+}
+
+/*********************************************************************/
