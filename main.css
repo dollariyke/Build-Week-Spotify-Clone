@@ -416,7 +416,8 @@ p {
 }
 
 #main-container .tab-content > .active {
-  width: 100%;
+  margin: 0 auto;
+  transition: all 0.25s ease-in-out;
 }
 
 #main-container .album-header-wrapper a {
@@ -619,7 +620,7 @@ aside#your-library {
 
 aside#artist-page {
   background-color: #181818;
-  padding: 0;
+  padding: 0px 0px 150px;
 }
 
 #artist-page h1 {
@@ -880,6 +881,21 @@ aside#tracklist-page {
 
 #tracklist-page .btn-more:hover {
   color: rgba(255, 255, 255, 0.9);
+}
+
+#tracklist-page #back-button {
+  background: #000;
+  border: none;
+  outline: none;
+  width: 100px;
+  padding: 14px 2px;
+  transform: scale(1);
+  transition: transform 0.25s ease-in-out, background 0.25s ease-in-out;
+}
+
+#tracklist-page #back-button:hover {
+  transform: scale(1.05);
+  background: rgb(3, 3, 3);
 }
 
 #tracklist-page .track-wrap {

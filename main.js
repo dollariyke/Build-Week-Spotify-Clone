@@ -15,7 +15,10 @@ const popularAlbums = [
   "122429752",
   "159826232",
   "15478674",
-];
+].map(async (id) => {
+  const promise = await deezer(`/album/${id}`);
+  return promise;
+});
 
 const trendingNowAlbums = [
   "180681412",
@@ -177,6 +180,7 @@ const playlistsJustForYou = [
 ];
 
 let randomColour;
+let backButton_artistName = "";
 let loadBrowseSection = false;
 let loadPodcastSecion = false;
 let loadMoodsAndGenresSection = false;
@@ -636,6 +640,8 @@ function showSection() {
 const showArtistPage = async (artist) => {
   const data = await deezer(`search?q=${artist}`);
 
+  backButton_artistName = artist;
+
   const artistPage = document.querySelector("#artist-page");
   const mainPage = document.querySelector("#main");
   const searchPage = document.querySelector("#search");
@@ -799,12 +805,27 @@ const search = async () => {
 
 /******************************************************************/
 
+/* BACK BUTTON FUNCTION */
+
+function goBack() {
+  showArtistPage(`${backButton_artistName}`);
+  const tracklistPageContainer = document.querySelector("#tracklist-page");
+
+  setTimeout(function () {
+    tracklistPageContainer.classList.add("d-none");
+    tracklistPageContainer.classList.remove("d-flex");
+  }, 200);
+}
+
+/******************************************************************/
+
 /* GENERATE POPULAR ALBUMS FUNCTION */
 
 const generatePopularAlbums = async () => {
+  const data = await Promise.all(popularAlbums);
   /* Fill first 6 */
   for (let i = 0; i < 6; i++) {
-    const data = await deezer(`album/${popularAlbums[i]}`);
+    /* const data = await deezer(`album/${popularAlbums[i]}`); */
     const popularAlbumsRow = document.querySelector("#popular-albums-row");
 
     const newCol = document.createElement("div");
@@ -823,9 +844,9 @@ const generatePopularAlbums = async () => {
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
     newCard.innerHTML =
-      `<img src="${data.cover_medium}" class="img-fluid"/>` +
-      `<h5>${data.title}</h5>` +
-      `<p>${data.artist.name}</p>`;
+      `<img src="${data[i].cover_medium}" class="img-fluid"/>` +
+      `<h5>${data[i].title}</h5>` +
+      `<p>${data[i].artist.name}</p>`;
 
     newCol.appendChild(newCard);
     popularAlbumsRow.appendChild(newCol);
@@ -833,7 +854,6 @@ const generatePopularAlbums = async () => {
 
   /* Fill expand 6 */
   for (let i = 6; i < 12; i++) {
-    const data = await deezer(`album/${popularAlbums[i]}`);
     const popularAlbumsExpandRow = document.querySelector(
       "#popular-expand-section"
     );
@@ -853,19 +873,9 @@ const generatePopularAlbums = async () => {
     const newCard = document.createElement("div");
     newCard.classList.add("album-card");
     newCard.innerHTML =
-      `<img src="${data.cover_medium}" class="img-fluid"/>` +
-      `<h5>${data.title}</h5>` +
-      `<p>${data.artist.name}</p>`;
-
-    /*     newCard.addEventListener("click", function loadSong() {
-      song_url = data[i].preview;
-      total_time = data[i].duration;
-      player_coverArt.style.backgroundImage = `url("${data.cover_small}")`;
-      player_trackName.innerText = data.data[i].title;
-      player_artistName.innerHTML = `${data.artist.name}`;
-      player_maxDuration.innerHTML = `${songDurationFull.slice(3)}`;
-      playMusic();
-    }); */
+      `<img src="${data[i].cover_medium}" class="img-fluid"/>` +
+      `<h5>${data[i].title}</h5>` +
+      `<p>${data[i].artist.name}</p>`;
 
     newCol.appendChild(newCard);
     popularAlbumsExpandRow.appendChild(newCol);
